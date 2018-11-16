@@ -1,6 +1,8 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { MatToolbarModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -10,13 +12,15 @@ import { Environment } from './models';
 import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
+    CommonModule,
     BrowserModule,
     HttpClientModule,
+    MatToolbarModule,
     RouterModule.forRoot(routes)
+  ],
+  declarations: [
+    AppComponent
   ],
   providers: [
     {

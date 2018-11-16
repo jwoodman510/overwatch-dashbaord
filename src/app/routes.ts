@@ -9,7 +9,6 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    component: AppComponent,
     children: [
       {
         path: '',

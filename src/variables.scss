@@ -1,0 +1,12 @@
+@import '~@angular/material/theming';
+
+$mat-primary: mat-palette($mat-gray, 800);
+$mat-accent: mat-palette($mat-orange, 800);
+$mat-warn: mat-palette($mat-red, 100);
+
+$primary: mat-color($mat-primary);
+$accent: mat-color($mat-accent);
+$warn: mat-color($mat-warn);
+
+$font: 'Impact';
+$font-alt: 'Georgia';
