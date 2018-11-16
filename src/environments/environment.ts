@@ -5,6 +5,7 @@ export const environment = {
     version: 'v1'
   },
   battleTags: [
-    'woodman-11497'
+    'woodman#11497',
+    'JonnyPGood#1682'
   ]
 };

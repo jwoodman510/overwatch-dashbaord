@@ -1,1 +1,1 @@
-export * from './overwatch.data.service';
+export * from './stats.data.service';

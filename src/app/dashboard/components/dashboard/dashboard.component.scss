@@ -1,2 +1,15 @@
 :host {
+  mat-card {
+    margin: 50px;
+    mat-card-header {
+      justify-content: center;
+      mat-card-title {
+        font-size: 24px;
+        font-weight: bold;
+      }
+    }
+    mat-spinner {
+      margin: 20px auto;
+    }
+  }
 }

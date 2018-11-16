@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { MatToolbarModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
-import { OverwatchDataService } from './services';
+import { StatsDataService } from './services';
 import { routes } from './routes';
 import { Environment } from './models';
 import { environment } from '../environments/environment';
@@ -16,7 +15,6 @@ import { environment } from '../environments/environment';
     CommonModule,
     BrowserModule,
     HttpClientModule,
-    MatToolbarModule,
     RouterModule.forRoot(routes)
   ],
   declarations: [
@@ -27,7 +25,7 @@ import { environment } from '../environments/environment';
       provide: Environment,
       useValue: environment
     },
-    OverwatchDataService
+    StatsDataService
   ],
   bootstrap: [AppComponent]
 })
