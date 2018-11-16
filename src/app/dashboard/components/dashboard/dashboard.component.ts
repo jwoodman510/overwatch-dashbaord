@@ -25,7 +25,13 @@ export class DashboardComponent implements OnInit {
         'PyroMax#11230',
         'FartMckenzie#1876',
         'hannah#12408',
+        'KyleFresco#2795',
+        'KyleFresco#11192',
+        'MillaTime#11186',
+        'MillaTime#11829',
       ];
+
+      this.sortCards();
   }
 
   ngOnInit(): void {
@@ -34,6 +40,15 @@ export class DashboardComponent implements OnInit {
 
   getStats(bt: string): PlayerStats {
     return this.stats.get(bt);
+  }
+
+  private sortCards(): void {
+    this.battleTags.sort((a, b) => {
+      a = a.toLowerCase();
+      b = b.toLowerCase();
+
+      return a > b ? 1 : b > a ? -1 : 0;
+    });
   }
 
   private loadProfile(bt: string): void {
