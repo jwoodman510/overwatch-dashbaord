@@ -9,6 +9,8 @@ export class PlayerStats {
   prestigeIcon: string;
   rating: number;
   ratingIcon: string;
+  endorsementIcon: string;
+  endorsement: number;
   quickPlayStats: GameStats;
   competitiveStats: GameStats;
 }

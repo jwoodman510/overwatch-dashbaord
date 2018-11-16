@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PlayerStats, Environment } from 'src/app/models';
 import { StatsDataService } from 'src/app/services';
-import { forkJoin } from 'rxjs';
 import {take, tap} from 'rxjs/operators';
 import { Regions, Platforms } from 'src/app/constants';
-import { trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-dashboard',
@@ -33,10 +31,40 @@ export class DashboardComponent implements OnInit {
     return this.stats.has(bt);
   }
 
+  getPlayerIcon(bt: string): string {
+    const x = this.stats.get(bt);
+
+    return x ? x.icon : undefined;
+  }
+
+  getRatingIcon(bt: string): string {
+    const x = this.stats.get(bt);
+
+    return x ? x.ratingIcon : undefined;
+  }
+
+  getEndorsementIcon(bt: string): string {
+    const x = this.stats.get(bt);
+
+    return x ? x.endorsementIcon : undefined;
+  }
+
+  getPrestigeIcon(bt: string): string {
+    const x = this.stats.get(bt);
+
+    return x ? x.prestigeIcon : undefined;
+  }
+
   getLevel(bt: string): number | string {
     const x = this.stats.get(bt);
 
     return x ? x.level : 'N/A';
+  }
+
+  getEndorsementLevel(bt: string): number | string {
+    const x = this.stats.get(bt);
+
+    return x ? x.endorsement : 'N/A';
   }
 
   getRating(bt: string): number | string {
@@ -45,36 +73,36 @@ export class DashboardComponent implements OnInit {
     return x ? x.rating : 'N/A';
   }
 
-  getQpGamesPlayed(bt: string): number | string {
+  getQpGamesPlayed(bt: string): number {
     const x = this.stats.get(bt);
 
     return x && x.quickPlayStats && x.quickPlayStats.games
       ? x.quickPlayStats.games.played
-      : 'N/A';
+      : 0;
   }
 
-  getQpGamesWon(bt: string): number | string {
+  getQpGamesWon(bt: string): number {
     const x = this.stats.get(bt);
 
     return x && x.quickPlayStats && x.quickPlayStats.games
       ? x.quickPlayStats.games.won
-      : 'N/A';
+      : 0;
   }
 
-  getCompGamesPlayed(bt: string): number | string {
+  getCompGamesPlayed(bt: string): number {
     const x = this.stats.get(bt);
 
     return x && x.competitiveStats && x.competitiveStats.games
       ? x.competitiveStats.games.played
-      : 'N/A';
+      : 0;
   }
 
-  getCompGamesWon(bt: string): number | string {
+  getCompGamesWon(bt: string): number {
     const x = this.stats.get(bt);
 
     return x.competitiveStats && x.competitiveStats.games
       ? x.competitiveStats.games.won
-      : 'N/A';
+      : 0;
   }
 
   private loadProfile(bt: string): void {
