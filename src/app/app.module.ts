@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+
+import { ResponsiveModule } from 'ngx-responsive';
 
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
 import { StatsDataService } from './services';
 import { routes } from './routes';
 import { Environment } from './models';
@@ -15,6 +17,7 @@ import { environment } from '../environments/environment';
     CommonModule,
     BrowserModule,
     HttpClientModule,
+    ResponsiveModule.forRoot(),
     RouterModule.forRoot(routes)
   ],
   declarations: [
