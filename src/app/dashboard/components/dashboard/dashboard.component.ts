@@ -73,6 +73,12 @@ export class DashboardComponent implements OnInit {
     return x ? x.rating : 'N/A';
   }
 
+  getPrestige(bt: string): number | string {
+    const x = this.stats.get(bt);
+
+    return x ? x.prestige : 'N/A';
+  }
+
   getQpGamesPlayed(bt: string): number {
     const x = this.stats.get(bt);
 
