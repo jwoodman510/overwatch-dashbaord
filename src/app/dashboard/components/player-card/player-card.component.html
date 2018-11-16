@@ -4,6 +4,9 @@
     <mat-card-title>{{battleTag}}</mat-card-title>
   </mat-card-header>
   <mat-card-content *ngIf="stats; else loading">
+    <div class="platform-region">
+      <span>{{stats.platform.toUpperCase()}}</span>|<span>{{stats.region.toUpperCase()}}</span>
+    </div>
     <div class="trophy-case">
       <img mat-card-avatar *ngIf="stats?.prestigeIcon" src="{{stats.prestigeIcon}}">
       <img mat-card-avatar *ngIf="stats?.ratingIcon" src="{{stats.ratingIcon}}">

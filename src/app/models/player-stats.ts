@@ -1,6 +1,8 @@
 import { GameStats } from './game-stats';
 
 export class PlayerStats {
+  region: Region;
+  platform: Platform;
   icon: string;
   name: string;
   level: number;

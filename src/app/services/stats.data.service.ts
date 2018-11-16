@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Environment, PlayerStats } from '../models';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable()
 export class StatsDataService {
@@ -18,7 +18,13 @@ export class StatsDataService {
     const bt = battleTag.replace('#', '-');
 
     return this.http.get<any>(`${this.baseUrl}/${platform}/${region}/${bt}/profile`).pipe(
-      map(x => x.error && x.error === 'Player not found' ? undefined : x as PlayerStats)
+      map(x => x.error && x.error === 'Player not found' ? undefined : x as PlayerStats),
+      tap(x => {
+        if (x) {
+          x.region = region;
+          x.platform = platform;
+        }
+      })
     );
   }
 }
