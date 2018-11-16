@@ -16,103 +16,23 @@ export class DashboardComponent implements OnInit {
   private region = Regions.NA;
   private platform = Platforms.PC;
 
-  constructor(
-    private environment: Environment,
-    private statsDataService: StatsDataService) {
+  constructor(private statsDataService: StatsDataService) {
       this.stats = new Map<string, PlayerStats>();
-      this.battleTags = this.environment.battleTags;
+      this.battleTags = [
+        'woodman#11497',
+        'woodman#11369',
+        'JonnyPGood#1682',
+        'PyroMax#11230',
+        'FartMckenzie#1876',
+      ];
   }
 
   ngOnInit(): void {
     this.battleTags.forEach(x => this.loadProfile(x));
   }
 
-  isLoaded(bt: string): boolean {
-    return this.stats.has(bt);
-  }
-
   getStats(bt: string): PlayerStats {
     return this.stats.get(bt);
-  }
-
-  getPlayerIcon(bt: string): string {
-    const x = this.stats.get(bt);
-
-    return x ? x.icon : undefined;
-  }
-
-  getRatingIcon(bt: string): string {
-    const x = this.stats.get(bt);
-
-    return x ? x.ratingIcon : undefined;
-  }
-
-  getEndorsementIcon(bt: string): string {
-    const x = this.stats.get(bt);
-
-    return x ? x.endorsementIcon : undefined;
-  }
-
-  getPrestigeIcon(bt: string): string {
-    const x = this.stats.get(bt);
-
-    return x ? x.prestigeIcon : undefined;
-  }
-
-  getLevel(bt: string): number | string {
-    const x = this.stats.get(bt);
-
-    return x ? x.level : 'N/A';
-  }
-
-  getEndorsementLevel(bt: string): number | string {
-    const x = this.stats.get(bt);
-
-    return x ? x.endorsement : 'N/A';
-  }
-
-  getRating(bt: string): number | string {
-    const x = this.stats.get(bt);
-
-    return x ? x.rating : 'N/A';
-  }
-
-  getPrestige(bt: string): number | string {
-    const x = this.stats.get(bt);
-
-    return x ? x.prestige : 'N/A';
-  }
-
-  getQpGamesPlayed(bt: string): number {
-    const x = this.stats.get(bt);
-
-    return x && x.quickPlayStats && x.quickPlayStats.games
-      ? x.quickPlayStats.games.played
-      : 0;
-  }
-
-  getQpGamesWon(bt: string): number {
-    const x = this.stats.get(bt);
-
-    return x && x.quickPlayStats && x.quickPlayStats.games
-      ? x.quickPlayStats.games.won
-      : 0;
-  }
-
-  getCompGamesPlayed(bt: string): number {
-    const x = this.stats.get(bt);
-
-    return x && x.competitiveStats && x.competitiveStats.games
-      ? x.competitiveStats.games.played
-      : 0;
-  }
-
-  getCompGamesWon(bt: string): number {
-    const x = this.stats.get(bt);
-
-    return x.competitiveStats && x.competitiveStats.games
-      ? x.competitiveStats.games.won
-      : 0;
   }
 
   private loadProfile(bt: string): void {

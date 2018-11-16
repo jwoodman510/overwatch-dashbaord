@@ -4,5 +4,4 @@ export class Environment {
     host: string;
     version: string;
   };
-  battleTags: Array<string>;
 }
