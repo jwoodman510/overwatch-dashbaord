@@ -31,6 +31,10 @@ export class DashboardComponent implements OnInit {
     return this.stats.has(bt);
   }
 
+  getStats(bt: string): PlayerStats {
+    return this.stats.get(bt);
+  }
+
   getPlayerIcon(bt: string): string {
     const x = this.stats.get(bt);
 

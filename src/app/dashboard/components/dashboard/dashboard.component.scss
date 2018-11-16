@@ -1,46 +1,12 @@
-@import '../../../../variables.scss';
-
 :host {
   .card-container {
     display: flex;
     flex-flow: wrap;
-    mat-card {
+    app-player-card {
       width: 300px;
       margin: 50px;
       min-width: 300px;
       min-height: 400px;
-      mat-card-header {
-        mat-card-title {
-          font-size: 24px;
-          font-weight: bold;
-        }
-      }
-      mat-spinner {
-        margin: 20px auto;
-      }
-      mat-card-content {
-        .trophy-case {
-          margin: 20px 0px;
-          img {
-            margin: 0px 20px;
-          }
-        }
-        .overview {
-          .stat {
-            margin: 20px 20px;
-            .label {
-              color: $primary;
-              font-size: 24px;
-              font-weight: bold;
-              margin-right: 10px;
-            }
-            .value {
-              color: $accent;
-              font-size: 24px;
-            }
-          }
-        }
-      }
     }
   }
 }
