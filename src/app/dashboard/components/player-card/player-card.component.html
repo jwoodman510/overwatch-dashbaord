@@ -30,16 +30,6 @@
         <span class="value">{{ stats.endorsement }}</span>
       </div>
     </div>
-    <div class="qp-stats" *ngIf="stats.quickPlayStats && stats.quickPlayStats.games">
-      <h2>QuickPlay Stats:</h2>
-      <p>Games Played: {{ stats.quickPlayStats.games.played }}</p>
-      <p>Games Won: {{ stats.quickPlayStats.games.won }}</p>
-    </div>
-    <div class="comp-stats" *ngIf="stats.competitiveStats && stats.competitiveStats.games">
-      <h2>Competitive Stats:</h2>
-      <p>Games Played: {{ stats.competitiveStats.games.played }}</p>
-      <p>Games Won: {{ stats.competitiveStats.games.won }}</p>
-    </div>
   </mat-card-content>
   <ng-template #loading>
       <mat-spinner></mat-spinner>
