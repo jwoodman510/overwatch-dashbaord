@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
 
   getBattleTags(): Array<string> {
     const data = this.searchText
-      ? this.battleTags.filter(x => x.toLowerCase().indexOf(this.searchText) >= 0)
+      ? this.battleTags.filter(x => x.toLowerCase().indexOf(this.searchText.toLowerCase()) >= 0)
       : this.battleTags;
 
     return this.sort(data);
