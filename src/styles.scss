@@ -1,6 +1,9 @@
 @import './variables.scss';
+@import '~@angular/material/theming';
+
+$primary-light: mat-color($mat-primary, 500);
 
 body {
   background-repeat: no-repeat;
-  background: linear-gradient($primary, $accent);
+  background: linear-gradient($primary-light, $accent);
 }

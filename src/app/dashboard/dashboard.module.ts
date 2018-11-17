@@ -1,10 +1,18 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router'; import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
-import { DashboardComponent, PlayerCardComponent } from './components';
+import {
+  MatCardModule,
+  MatProgressSpinnerModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatButtonModule
+} from '@angular/material';
+
 import { dashboardRoutes } from './dashboard-routes';
-import { MatCardModule, MatProgressSpinnerModule } from '@angular/material';
-import { CommonModule } from '@angular/common';
+import { DashboardComponent, PlayerCardComponent } from './components';
 
 @NgModule({
   declarations: [
@@ -13,7 +21,12 @@ import { CommonModule } from '@angular/common';
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    MatButtonModule,
     MatCardModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
     MatProgressSpinnerModule,
     RouterModule.forChild(dashboardRoutes)
   ]

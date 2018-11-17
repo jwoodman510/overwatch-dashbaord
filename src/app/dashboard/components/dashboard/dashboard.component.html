@@ -1,4 +1,8 @@
+<mat-form-field class="search">
+  <input matInput placeholder="Search" [(ngModel)]="searchText">
+  <button *ngIf="searchText" matSuffix mat-icon-button (click)="searchText=''">X</button>
+</mat-form-field>
 <div class="card-container">
-  <app-player-card *ngFor="let bt of battleTags" [battleTag]="bt" [stats]="getStats(bt)">
+  <app-player-card *ngFor="let bt of getBattleTags()" [battleTag]="bt" [stats]="getStats(bt)">
   </app-player-card>
 </div>
