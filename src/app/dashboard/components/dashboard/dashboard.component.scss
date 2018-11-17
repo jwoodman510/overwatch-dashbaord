@@ -1,6 +1,9 @@
 @import '../../../../variables.scss';
 
 :host {
+  mat-form-field.search {
+    width: 100%;
+  }
   .card-container {
     display: flex;
     flex-flow: wrap;
