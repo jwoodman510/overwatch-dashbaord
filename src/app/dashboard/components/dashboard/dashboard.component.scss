@@ -6,6 +6,8 @@
   }
   button.add {
     position: fixed;
+    padding-left: 20px;
+    z-index: 99;
     mat-icon {
       color: $header-color;
     }
