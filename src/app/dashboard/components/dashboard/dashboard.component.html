@@ -3,6 +3,7 @@
   <button *ngIf="searchText" matSuffix mat-icon-button (click)="searchText=''">X</button>
 </mat-form-field>
 <div class="card-container">
-  <app-player-card *ngFor="let bt of getBattleTags()" [battleTag]="bt" [stats]="getStats(bt)">
+  <app-player-card *ngFor="let bt of getBattleTags()"
+    [battleTag]="bt" [stats]="getStats(bt)" [error]="hasError(bt)" (retry)="retry(bt)">
   </app-player-card>
 </div>

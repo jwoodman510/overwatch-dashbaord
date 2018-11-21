@@ -48,6 +48,13 @@
           }
         }
       }
+      &.error {
+        text-align: center;
+        a {
+          color: $accent;
+          cursor: pointer;
+        }
+      }
     }
   }
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PlayerStats, Environment } from 'src/app/models';
 import { StatsDataService } from 'src/app/services';
-import {take, tap} from 'rxjs/operators';
+import {take, tap, catchError} from 'rxjs/operators';
 import { Regions, Platforms } from 'src/app/constants';
+import { of, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,10 +18,12 @@ export class DashboardComponent implements OnInit {
 
   private region = Regions.NA;
   private platform = Platforms.PC;
+  private errors: Set<string>;
   private battleTags: Array<string>;
 
   constructor(private statsDataService: StatsDataService) {
       this.stats = new Map<string, PlayerStats>();
+      this.errors = new Set<string>();
       this.battleTags = [
         'woodman#11497',
         'woodman#11369',
@@ -51,10 +54,24 @@ export class DashboardComponent implements OnInit {
     return this.stats.get(bt);
   }
 
+  hasError(bt: string): boolean {
+    return this.errors.has(bt);
+  }
+
+  retry(bt: string): void {
+    this.errors.delete(bt);
+    this.loadProfile(bt);
+  }
+
   private loadProfile(bt: string): void {
     this.statsDataService.getProfile(this.platform, this.region, bt).pipe(
       take(1),
-      tap(x => this.stats.set(bt, x))
+      tap(x => this.stats.set(bt, x)),
+      catchError(e => {
+        this.errors.add(bt);
+
+        return of(undefined);
+      }),
     ).subscribe();
   }
 

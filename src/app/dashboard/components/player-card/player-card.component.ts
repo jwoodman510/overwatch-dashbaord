@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PlayerStats } from 'src/app/models';
 
 @Component({
@@ -12,4 +12,10 @@ export class PlayerCardComponent {
 
   @Input()
   stats: PlayerStats;
+
+  @Input()
+  error: boolean;
+
+  @Output()
+  readonly retry = new EventEmitter<void>();
 }

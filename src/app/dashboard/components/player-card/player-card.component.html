@@ -3,7 +3,7 @@
       <img mat-card-avatar *ngIf="stats?.icon" src="{{stats.icon}}">
     <mat-card-title>{{battleTag}}</mat-card-title>
   </mat-card-header>
-  <mat-card-content *ngIf="stats; else loading">
+  <mat-card-content *ngIf="!error && stats">
     <div class="platform-region">
       <span>{{stats.platform.toUpperCase()}}</span>|<span>{{stats.region.toUpperCase()}}</span>
     </div>
@@ -31,7 +31,11 @@
       </div>
     </div>
   </mat-card-content>
-  <ng-template #loading>
+  <mat-card-content class="error" *ngIf="error">
+      <p>An Error Occurred.</p>
+      <p>Click <a (click)="retry.emit()">here</a> to retry.</p>
+  </mat-card-content>
+  <mat-card-content *ngIf="!error && !stats">
       <mat-spinner></mat-spinner>
-  </ng-template>
+  </mat-card-content>
 </mat-card>
