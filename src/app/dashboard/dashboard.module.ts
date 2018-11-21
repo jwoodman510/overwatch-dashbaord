@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router'; import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 import {
   MatCardModule,
@@ -15,6 +16,7 @@ import {
 
 import { dashboardRoutes } from './dashboard-routes';
 import { DashboardComponent, PlayerCardComponent, AddCardDialogComponent } from './components';
+import { BattletagService } from './services';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { DashboardComponent, PlayerCardComponent, AddCardDialogComponent } from 
     MatSelectModule,
     RouterModule.forChild(dashboardRoutes)
   ],
-  entryComponents: [AddCardDialogComponent]
+  entryComponents: [AddCardDialogComponent],
+  providers: [BattletagService, CookieService]
 })
 export class DashboardModule { }

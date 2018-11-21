@@ -1,11 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PlayerStats, Environment } from 'src/app/models';
+import { PlayerStats } from 'src/app/models';
 import { StatsDataService } from 'src/app/services';
 import {take, tap, catchError, filter} from 'rxjs/operators';
 import { Regions, Platforms } from 'src/app/constants';
 import { of } from 'rxjs';
 import { MatDialog } from '@angular/material';
-import { AddCardDialogComponent } from '../add-card/add-card-dialog';
+import { AddCardDialogComponent } from '../add-card/add-card.dialog';
+import { BattletagService } from '../../services';
 
 @Component({
   selector: 'app-dashboard',
@@ -23,21 +24,13 @@ export class DashboardComponent implements OnInit {
   private errors: Set<string>;
   private battleTags: Array<string>;
 
-  constructor(private dialog: MatDialog, private statsDataService: StatsDataService) {
+  constructor(
+    private dialog: MatDialog,
+    private battletagService: BattletagService,
+    private statsDataService: StatsDataService) {
       this.stats = new Map<string, PlayerStats>();
       this.errors = new Set<string>();
-      this.battleTags = this.sort([
-        'woodman#11497',
-        'woodman#11369',
-        'JonnyPGood#1682',
-        'PyroMax#11230',
-        'FartMckenzie#1876',
-        'hannah#12408',
-        'KyleFresco#2795',
-        'KyleFresco#11192',
-        'MillaTime#11186',
-        'MillaTime#11829',
-      ]);
+      this.battleTags = this.sort(this.battletagService.get());
   }
 
   ngOnInit(): void {
@@ -72,6 +65,7 @@ export class DashboardComponent implements OnInit {
     this.errors.delete(bt);
     this.stats.delete(bt);
     this.battleTags = this.battleTags.filter(x => x !== bt);
+    this.battletagService.deleteEntry(bt);
   }
 
   openAddDialog(): void {
@@ -84,7 +78,8 @@ export class DashboardComponent implements OnInit {
       take(1),
       filter(x => x && x.battletag),
       tap(x => this.battleTags = [x.battletag].concat(this.battleTags)),
-      tap(x => this.loadProfile(x.battletag, x.platform, x.region))
+      tap(x => this.loadProfile(x.battletag, x.platform, x.region)),
+      tap(x => this.battletagService.addEntry(x.battletag))
     ).subscribe();
   }
 
