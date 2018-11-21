@@ -2,7 +2,13 @@
 
 :host {
   mat-form-field.search {
-    width: 100%;
+    width: 90%;
+  }
+  button.add {
+    position: fixed;
+    mat-icon {
+      color: $header-color;
+    }
   }
   .card-container {
     display: flex;

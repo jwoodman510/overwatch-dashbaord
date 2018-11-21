@@ -1,9 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PlayerStats, Environment } from 'src/app/models';
 import { StatsDataService } from 'src/app/services';
-import {take, tap, catchError} from 'rxjs/operators';
+import {take, tap, catchError, filter} from 'rxjs/operators';
 import { Regions, Platforms } from 'src/app/constants';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
+import { MatDialog } from '@angular/material';
+import { AddCardDialogComponent } from '../add-card/add-card-dialog';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,10 +23,10 @@ export class DashboardComponent implements OnInit {
   private errors: Set<string>;
   private battleTags: Array<string>;
 
-  constructor(private statsDataService: StatsDataService) {
+  constructor(private dialog: MatDialog, private statsDataService: StatsDataService) {
       this.stats = new Map<string, PlayerStats>();
       this.errors = new Set<string>();
-      this.battleTags = [
+      this.battleTags = this.sort([
         'woodman#11497',
         'woodman#11369',
         'JonnyPGood#1682',
@@ -35,7 +37,7 @@ export class DashboardComponent implements OnInit {
         'KyleFresco#11192',
         'MillaTime#11186',
         'MillaTime#11829',
-      ];
+      ]);
   }
 
   ngOnInit(): void {
@@ -43,11 +45,9 @@ export class DashboardComponent implements OnInit {
   }
 
   getBattleTags(): Array<string> {
-    const data = this.searchText
+    return this.searchText
       ? this.battleTags.filter(x => x.toLowerCase().indexOf(this.searchText.toLowerCase()) >= 0)
       : this.battleTags;
-
-    return this.sort(data);
   }
 
   getStats(bt: string): PlayerStats {
@@ -59,15 +59,40 @@ export class DashboardComponent implements OnInit {
   }
 
   retry(bt: string): void {
+    this.refresh(bt);
+  }
+
+  refresh(bt: string): void {
     this.errors.delete(bt);
+    this.stats.delete(bt);
     this.loadProfile(bt);
   }
 
-  private loadProfile(bt: string): void {
-    this.statsDataService.getProfile(this.platform, this.region, bt).pipe(
+  remove(bt: string): void {
+    this.errors.delete(bt);
+    this.stats.delete(bt);
+    this.battleTags = this.battleTags.filter(x => x !== bt);
+  }
+
+  openAddDialog(): void {
+    const dialogRef = this.dialog.open(AddCardDialogComponent, {
+      width: '300px',
+      height: 'fit-content'
+    });
+
+    dialogRef.afterClosed().pipe(
+      take(1),
+      filter(x => x && x.battletag),
+      tap(x => this.battleTags = [x.battletag].concat(this.battleTags)),
+      tap(x => this.loadProfile(x.battletag, x.platform, x.region))
+    ).subscribe();
+  }
+
+  private loadProfile(bt: string, platform?: Platform, region?: Region): void {
+    this.statsDataService.getProfile(platform || this.platform, region || this.region, bt).pipe(
       take(1),
       tap(x => this.stats.set(bt, x)),
-      catchError(e => {
+      catchError(() => {
         this.errors.add(bt);
 
         return of(undefined);

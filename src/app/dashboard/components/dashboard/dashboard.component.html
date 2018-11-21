@@ -1,9 +1,15 @@
 <mat-form-field class="search">
   <input matInput placeholder="Search" [(ngModel)]="searchText">
-  <button *ngIf="searchText" matSuffix mat-icon-button (click)="searchText=''">X</button>
+  <button *ngIf="searchText" matSuffix mat-icon-button (click)="searchText=''">
+    <mat-icon>close</mat-icon>
+  </button>
 </mat-form-field>
+<button mat-icon-button class="add" (click)="openAddDialog()">
+  <mat-icon>add_circle</mat-icon>
+</button>
 <div class="card-container">
   <app-player-card *ngFor="let bt of getBattleTags()"
-    [battleTag]="bt" [stats]="getStats(bt)" [error]="hasError(bt)" (retry)="retry(bt)">
+    [battleTag]="bt" [stats]="getStats(bt)" [error]="hasError(bt)"
+    (retry)="retry(bt)" (refresh)="refresh(bt)" (remove)="remove(bt)">
   </app-player-card>
 </div>

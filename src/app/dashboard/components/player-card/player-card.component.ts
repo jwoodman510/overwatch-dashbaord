@@ -18,4 +18,10 @@ export class PlayerCardComponent {
 
   @Output()
   readonly retry = new EventEmitter<void>();
+
+  @Output()
+  readonly remove = new EventEmitter<void>();
+
+  @Output()
+  readonly refresh = new EventEmitter<void>();
 }

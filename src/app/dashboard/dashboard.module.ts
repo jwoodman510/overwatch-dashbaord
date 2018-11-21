@@ -8,14 +8,17 @@ import {
   MatInputModule,
   MatFormFieldModule,
   MatIconModule,
-  MatButtonModule
+  MatButtonModule,
+  MatDialogModule,
+  MatSelectModule
 } from '@angular/material';
 
 import { dashboardRoutes } from './dashboard-routes';
-import { DashboardComponent, PlayerCardComponent } from './components';
+import { DashboardComponent, PlayerCardComponent, AddCardDialogComponent } from './components';
 
 @NgModule({
   declarations: [
+    AddCardDialogComponent,
     DashboardComponent,
     PlayerCardComponent
   ],
@@ -24,11 +27,14 @@ import { DashboardComponent, PlayerCardComponent } from './components';
     FormsModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
     RouterModule.forChild(dashboardRoutes)
-  ]
+  ],
+  entryComponents: [AddCardDialogComponent]
 })
 export class DashboardModule { }

@@ -1,4 +1,12 @@
 <mat-card>
+  <mat-card-header class="actions">
+    <button class="refresh" mat-icon-button (click)="refresh.emit()">
+      <mat-icon>refresh</mat-icon>
+    </button>
+    <button class="close" mat-icon-button (click)="remove.emit()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-card-header>
   <mat-card-header>
       <img mat-card-avatar *ngIf="stats?.icon" src="{{stats.icon}}">
     <mat-card-title>{{battleTag}}</mat-card-title>

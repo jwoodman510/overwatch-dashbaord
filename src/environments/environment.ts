@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
   overwatchApi: {
-    host: 'http://localhost:5000/api/'
+    host: 'https://overwatch-dashboard.azurewebsites.net/api/'
   }
 };

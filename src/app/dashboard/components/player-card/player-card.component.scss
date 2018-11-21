@@ -2,7 +2,7 @@
 
 :host {
   mat-card {
-    padding: 10px;
+    padding: 0px 10px;
     width: inherit;
     margin: inherit;
     min-width: inherit;
@@ -11,6 +11,18 @@
       mat-card-title {
         font-size: 24px;
         font-weight: bold;
+      }
+      &.actions {
+        width: 100%;
+        display: inline-block;
+        button.refresh {
+          float: left;
+          margin-left: -10px;
+        }
+        button.close {
+          float: right;
+          margin-right: -10px;
+        }
       }
     }
     mat-spinner {
