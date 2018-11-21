@@ -378,7 +378,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+@angular/material/dialog
+
 @angular/material/button
+
+@angular/material/icon
 
 @angular/material/progress-spinner
 
@@ -388,3 +392,10 @@ THE SOFTWARE.
 
 @angular/forms
 MIT
+
+ngx-cookie-service
+MIT
+
+@angular/material/select
+
+@angular/material/core
