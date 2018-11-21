@@ -28,9 +28,11 @@
         }
       }
       .trophy-case {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
         margin: 20px 0px;
         img {
-          margin: 0px 20px;
+          margin: 0px 10px;
         }
       }
       .overview {
