@@ -1,11 +1,12 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
+import { CookieService } from 'ngx-cookie-service';
 import { ResponsiveModule } from 'ngx-responsive';
 import { environment } from 'src/environments/environment';
 
 import { Environment } from './models';
-import { StatsDataService } from './services';
+import { BattletagService, StatsDataService } from './services';
 
 @NgModule({
   imports: [HttpClientModule, ResponsiveModule.forRoot()],
@@ -14,6 +15,8 @@ import { StatsDataService } from './services';
       provide: Environment,
       useValue: environment
     },
+    BattletagService,
+    CookieService,
     StatsDataService
   ]
 })

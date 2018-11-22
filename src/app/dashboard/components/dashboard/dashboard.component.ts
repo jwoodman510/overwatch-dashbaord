@@ -5,10 +5,9 @@ import { of } from 'rxjs';
 import { catchError, filter, take, tap } from 'rxjs/operators';
 
 import { PlayerStats } from '@app/core/models';
-import { StatsDataService } from '@app/core/services';
+import { BattletagService, StatsDataService } from '@app/core/services';
 import { Platforms, Regions } from '@app/shared/constants';
 
-import { BattletagService } from '../../services';
 import { AddCardDialogComponent } from '../add-card/add-card.dialog';
 
 @Component({
