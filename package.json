@@ -8,8 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "publish": "ngh --dir=dist/overwatch-dashboard",
-    "prepublish": "ng build --prod --base-href \"https://jwoodman510.github.io/overwatch-dashboard/\""
+    "publish": "ngh --dir=dist/overwatch-dashboard --cname=jonnypgood.com",
+    "prepublish": "ng build --prod --base-href \"/overwatch-dashboard/\""
   },
   "private": true,
   "dependencies": {
