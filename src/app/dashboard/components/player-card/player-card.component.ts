@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { PlayerStats } from 'src/app/models';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-player-card',
@@ -24,4 +25,25 @@ export class PlayerCardComponent {
 
   @Output()
   readonly refresh = new EventEmitter<void>();
+
+  flipped = false;
+
+  flip(): void {
+    this.flipped = !this.flipped;
+  }
+
+  constructor(private sanitizer: DomSanitizer) {}
+
+  get playOverwatchLink(): SafeResourceUrl {
+    if (!this.stats) {
+      return undefined;
+    }
+
+    const platform = this.stats.platform.toLowerCase();
+    const bt = this.battleTag.replace('#', '-');
+
+    const url = `https://playoverwatch.com/en-us/career/${platform}/${bt}`;
+
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
 }

@@ -1,10 +1,45 @@
 @import '../../../../variables.scss';
 
 :host {
+  .card-container {
+    width: inherit;
+    margin: inherit;
+    min-width: inherit;
+    min-height: inherit;
+    .flippable-card {
+      width: inherit;
+      min-width: inherit;
+      min-height: inherit;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+      &.flipped {
+        transform: rotateY(180deg);
+        -webkit-transform: rotateY(180deg);
+        mat-card {
+          &.back {
+            pointer-events: all;
+          }
+          &.front {
+            pointer-events: none;
+          }
+        }
+      }
+      mat-card {
+        position: absolute;
+        backface-visibility: hidden;
+        &.back {
+          transform: rotateY(180deg);
+          pointer-events: none;
+        }
+        &.front {
+          pointer-events: all;
+        }
+      }
+    }
+  }
   mat-card {
     padding: 0px 10px;
     width: inherit;
-    margin: inherit;
     min-width: inherit;
     min-height: inherit;
     mat-card-header {
@@ -69,6 +104,10 @@
           cursor: pointer;
         }
       }
+    }
+    iframe {
+      height: 300px;
+      margin-top: 10px;
     }
   }
 }

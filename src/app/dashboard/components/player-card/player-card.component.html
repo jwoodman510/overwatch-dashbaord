@@ -1,50 +1,71 @@
-<mat-card>
-  <mat-card-header class="actions">
-    <button class="refresh" mat-icon-button (click)="refresh.emit()">
-      <mat-icon>refresh</mat-icon>
-    </button>
-    <button class="close" mat-icon-button (click)="remove.emit()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-card-header>
-  <mat-card-header>
-      <img mat-card-avatar *ngIf="stats?.icon" src="{{stats.icon}}">
-    <mat-card-title>{{battleTag}}</mat-card-title>
-  </mat-card-header>
-  <mat-card-content *ngIf="!error && stats">
-    <div class="platform-region">
-      <span>{{stats.platform.toUpperCase()}}</span>|<span>{{stats.region.toUpperCase()}}</span>
-    </div>
-    <div class="trophy-case">
-      <img mat-card-avatar *ngIf="stats?.prestigeIcon" src="{{stats.prestigeIcon}}">
-      <img mat-card-avatar *ngIf="stats?.levelIcon" src="{{stats.levelIcon}}">
-      <img mat-card-avatar *ngIf="stats?.ratingIcon" src="{{stats.ratingIcon}}">
-      <img mat-card-avatar *ngIf="stats?.endorsementIcon" src="{{stats.endorsementIcon}}">
-    </div>
-    <div class="overview">
-      <div class="stat">
-        <span class="label">SR:</span>
-        <span class="value">{{ stats.rating || 'N/A' }}</span>
-      </div>
-      <div class="stat">
-        <span class="label">Level:</span>
-        <span class="value">{{ stats.level }}</span>
-      </div>
-      <div class="stat">
-        <span class="label">Prestige:</span>
-        <span class="value">{{ stats.prestige }}</span>
-      </div>
-      <div class="stat">
-        <span class="label">Endorsement Level:</span>
-        <span class="value">{{ stats.endorsement }}</span>
-      </div>
-    </div>
-  </mat-card-content>
-  <mat-card-content class="error" *ngIf="error">
-      <p>An Error Occurred.</p>
-      <p>Click <a (click)="retry.emit()">here</a> to retry.</p>
-  </mat-card-content>
-  <mat-card-content *ngIf="!error && !stats">
-      <mat-spinner></mat-spinner>
-  </mat-card-content>
-</mat-card>
+<div class="card-container" (dblclick)="flip()">
+  <div class="flippable-card" [class.flipped]="flipped">
+    <mat-card class="front">
+      <mat-card-header class="actions">
+        <button class="refresh" mat-icon-button (click)="flip()">
+          <mat-icon>rotate_right</mat-icon>
+        </button>
+        <button class="close" mat-icon-button (click)="remove.emit()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-card-header>
+      <mat-card-header>
+          <img mat-card-avatar *ngIf="stats?.icon" src="{{stats.icon}}">
+        <mat-card-title>{{battleTag}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content *ngIf="!error && stats">
+        <div class="platform-region">
+          <span>{{stats.platform.toUpperCase()}}</span>|<span>{{stats.region.toUpperCase()}}</span>
+        </div>
+        <div class="trophy-case">
+          <img mat-card-avatar *ngIf="stats?.prestigeIcon" src="{{stats.prestigeIcon}}">
+          <img mat-card-avatar *ngIf="stats?.levelIcon" src="{{stats.levelIcon}}">
+          <img mat-card-avatar *ngIf="stats?.ratingIcon" src="{{stats.ratingIcon}}">
+          <img mat-card-avatar *ngIf="stats?.endorsementIcon" src="{{stats.endorsementIcon}}">
+        </div>
+        <div class="overview">
+          <div class="stat">
+            <span class="label">SR:</span>
+            <span class="value">{{ stats.rating || 'N/A' }}</span>
+          </div>
+          <div class="stat">
+            <span class="label">Level:</span>
+            <span class="value">{{ stats.level }}</span>
+          </div>
+          <div class="stat">
+            <span class="label">Prestige:</span>
+            <span class="value">{{ stats.prestige }}</span>
+          </div>
+          <div class="stat">
+            <span class="label">Endorsement Level:</span>
+            <span class="value">{{ stats.endorsement }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-content class="error" *ngIf="error">
+          <p>An Error Occurred.</p>
+          <p>Click <a (click)="retry.emit()">here</a> to retry.</p>
+      </mat-card-content>
+      <mat-card-content *ngIf="!error && !stats">
+          <mat-spinner></mat-spinner>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="back">
+      <mat-card-header class="actions">
+        <button class="refresh" mat-icon-button (click)="flip()">
+          <mat-icon>rotate_right</mat-icon>
+        </button>
+        <button class="close" mat-icon-button (click)="remove.emit()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-card-header>
+      <mat-card-header>
+          <img mat-card-avatar *ngIf="stats?.icon" src="{{stats.icon}}">
+        <mat-card-title>{{battleTag}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content *ngIf="stats && flipped">
+        <iframe width="100%" height="100%" [src]="playOverwatchLink"></iframe>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
