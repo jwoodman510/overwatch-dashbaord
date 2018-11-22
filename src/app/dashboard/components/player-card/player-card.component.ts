@@ -1,49 +1,86 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
-import { PlayerStats } from '@app/core/models';
+import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
+
+import { Actions, ofActionErrored, Store } from '@ngxs/store';
+
+import { BattleTag, PlayerStats } from '@app/core/models';
+import { RemoveBattleTag } from '@app/core/state';
+import { LoadStats, StatsState } from '@app/dashboard/state';
 
 @Component({
   selector: 'app-player-card',
   templateUrl: './player-card.component.html',
   styleUrls: ['./player-card.component.scss']
 })
-export class PlayerCardComponent {
+export class PlayerCardComponent implements OnInit {
   @Input()
-  battleTag: string;
+  battleTag: BattleTag;
 
-  @Input()
-  stats: PlayerStats;
-
-  @Input()
-  error: boolean;
-
-  @Output()
-  readonly retry = new EventEmitter<void>();
-
-  @Output()
-  readonly remove = new EventEmitter<void>();
-
-  @Output()
-  readonly refresh = new EventEmitter<void>();
-
-  flipped = false;
-
-  flip(): void {
-    this.flipped = !this.flipped;
+  get flipped(): boolean {
+    return this._flipped;
   }
 
-  constructor(private sanitizer: DomSanitizer) {}
+  get hasError(): boolean {
+    return this._hasError;
+  }
+
+  get stats(): PlayerStats {
+    return this._stats;
+  }
+
+  private _flipped = false;
+  private _hasError = false;
+  private _stats: PlayerStats;
+
+  constructor(
+    private store: Store,
+    private actions: Actions,
+    private sanitizer: DomSanitizer
+  ) {}
+
+  ngOnInit(): void {
+    this.store.dispatch(new LoadStats(this.battleTag));
+
+    this.actions
+      .pipe(
+        ofActionErrored(LoadStats),
+        filter((x: LoadStats) => x.battleTag === this.battleTag),
+        tap(() => (this._hasError = true))
+      )
+      .subscribe();
+
+    this.store
+      .select(StatsState)
+      .pipe(
+        filter((x: Array<PlayerStats>) => x && x.length > 0),
+        map(x => x.filter(y => y.region === this.battleTag.region)),
+        map(x => x.filter(y => y.platform === this.battleTag.platform)),
+        map(x => x.find(y => y.name === this.battleTag.name)),
+        distinctUntilChanged()
+      )
+      .subscribe(x => (this._stats = x));
+  }
+
+  flip(): void {
+    this._flipped = !this._flipped;
+  }
+
+  remove(): void {
+    this.store.dispatch(new RemoveBattleTag(this.battleTag));
+  }
+
+  reload(): void {
+    this._hasError = false;
+    this.store.dispatch(new LoadStats(this.battleTag));
+  }
 
   get playOverwatchLink(): SafeResourceUrl {
-    if (!this.stats) {
-      return undefined;
-    }
+    const platform = this.battleTag.platform.toLowerCase();
+    const name = this.battleTag.name.replace('#', '-');
 
-    const platform = this.stats.platform.toLowerCase();
-    const bt = this.battleTag.replace('#', '-');
-
-    const url = `https://playoverwatch.com/en-us/career/${platform}/${bt}`;
+    const url = `https://playoverwatch.com/en-us/career/${platform}/${name}`;
 
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }

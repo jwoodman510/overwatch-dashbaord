@@ -2,6 +2,7 @@ import { Observable, of } from 'rxjs';
 
 import { Action, State, StateContext } from '@ngxs/store';
 
+import { BattleTag } from '@app/core/models';
 import { BattleTagService } from '@app/core/services';
 
 import {
@@ -10,7 +11,7 @@ import {
   RemoveBattleTag
 } from './battle-tags.actions';
 
-@State<Array<string>>({
+@State<Array<BattleTag>>({
   name: 'battleTags',
   defaults: []
 })
@@ -18,7 +19,9 @@ export class BattleTagsState {
   constructor(private battleTagService: BattleTagService) {}
 
   @Action(LoadBattleTags)
-  loadBattleTags({ setState }: StateContext<Array<string>>): Observable<void> {
+  loadBattleTags({
+    setState
+  }: StateContext<Array<BattleTag>>): Observable<void> {
     setState(this.battleTagService.get());
 
     return of(undefined);
@@ -26,12 +29,16 @@ export class BattleTagsState {
 
   @Action(AddBattleTag)
   addBattleTag(
-    { getState, setState }: StateContext<Array<string>>,
+    { getState, setState }: StateContext<Array<BattleTag>>,
     action: AddBattleTag
   ): Observable<void> {
     const state = getState();
 
-    if (!state.some(x => x.toLowerCase() === action.battleTag.toLowerCase())) {
+    if (
+      !state.some(
+        x => BattleTag.getKey(x) === BattleTag.getKey(action.battleTag)
+      )
+    ) {
       this.battleTagService.addEntry(action.battleTag);
 
       setState(state.concat(action.battleTag));
@@ -42,11 +49,11 @@ export class BattleTagsState {
 
   @Action(RemoveBattleTag)
   removeBattleTag(
-    { getState, setState }: StateContext<Array<string>>,
+    { getState, setState }: StateContext<Array<BattleTag>>,
     action: RemoveBattleTag
   ): Observable<void> {
     const state = getState().filter(
-      x => x.toLowerCase() === action.battleTag.toLowerCase()
+      x => BattleTag.getKey(x) !== BattleTag.getKey(action.battleTag)
     );
 
     this.battleTagService.deleteEntry(action.battleTag);

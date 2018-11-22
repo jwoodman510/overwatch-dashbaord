@@ -2,26 +2,43 @@
   <div class="flippable-card" [class.flipped]="flipped">
     <mat-card class="front">
       <mat-card-header class="actions">
-        <button class="refresh" mat-icon-button (click)="flip()">
+        <button class="flip" mat-icon-button (click)="flip()">
           <mat-icon>rotate_right</mat-icon>
         </button>
-        <button class="close" mat-icon-button (click)="remove.emit()">
+        <button class="close" mat-icon-button (click)="remove()">
           <mat-icon>close</mat-icon>
         </button>
       </mat-card-header>
       <mat-card-header>
-          <img mat-card-avatar *ngIf="stats?.icon" src="{{stats.icon}}">
-        <mat-card-title>{{battleTag}}</mat-card-title>
+        <img mat-card-avatar *ngIf="stats?.icon" src="{{stats.icon}}" />
+        <mat-card-title>{{ battleTag.name }}</mat-card-title>
       </mat-card-header>
-      <mat-card-content *ngIf="!error && stats">
+      <mat-card-content *ngIf="!hasError && stats">
         <div class="platform-region">
-          <span>{{stats.platform.toUpperCase()}}</span>|<span>{{stats.region.toUpperCase()}}</span>
+          <span>{{ stats.platform.toUpperCase() }}</span
+          >|<span>{{ stats.region.toUpperCase() }}</span>
         </div>
         <div class="trophy-case">
-          <img mat-card-avatar *ngIf="stats?.prestigeIcon" src="{{stats.prestigeIcon}}">
-          <img mat-card-avatar *ngIf="stats?.levelIcon" src="{{stats.levelIcon}}">
-          <img mat-card-avatar *ngIf="stats?.ratingIcon" src="{{stats.ratingIcon}}">
-          <img mat-card-avatar *ngIf="stats?.endorsementIcon" src="{{stats.endorsementIcon}}">
+          <img
+            mat-card-avatar
+            *ngIf="stats?.prestigeIcon"
+            src="{{stats.prestigeIcon}}"
+          />
+          <img
+            mat-card-avatar
+            *ngIf="stats?.levelIcon"
+            src="{{stats.levelIcon}}"
+          />
+          <img
+            mat-card-avatar
+            *ngIf="stats?.ratingIcon"
+            src="{{stats.ratingIcon}}"
+          />
+          <img
+            mat-card-avatar
+            *ngIf="stats?.endorsementIcon"
+            src="{{stats.endorsementIcon}}"
+          />
         </div>
         <div class="overview">
           <div class="stat">
@@ -42,26 +59,26 @@
           </div>
         </div>
       </mat-card-content>
-      <mat-card-content class="error" *ngIf="error">
-          <p>An Error Occurred.</p>
-          <p>Click <a (click)="retry.emit()">here</a> to retry.</p>
+      <mat-card-content class="error" *ngIf="hasError">
+        <p>An Error Occurred.</p>
+        <p>Click <a (click)="reload()">here</a> to retry.</p>
       </mat-card-content>
-      <mat-card-content *ngIf="!error && !stats">
-          <mat-spinner></mat-spinner>
+      <mat-card-content *ngIf="!hasError && !stats">
+        <mat-spinner></mat-spinner>
       </mat-card-content>
     </mat-card>
     <mat-card class="back">
       <mat-card-header class="actions">
-        <button class="refresh" mat-icon-button (click)="flip()">
+        <button class="flip" mat-icon-button (click)="flip()">
           <mat-icon>rotate_right</mat-icon>
         </button>
-        <button class="close" mat-icon-button (click)="remove.emit()">
+        <button class="close" mat-icon-button (click)="remove()">
           <mat-icon>close</mat-icon>
         </button>
       </mat-card-header>
       <mat-card-header>
-          <img mat-card-avatar *ngIf="stats?.icon" src="{{stats.icon}}">
-        <mat-card-title>{{battleTag}}</mat-card-title>
+        <img mat-card-avatar *ngIf="stats?.icon" src="{{stats.icon}}" />
+        <mat-card-title>{{ battleTag.name }}</mat-card-title>
       </mat-card-header>
       <mat-card-content *ngIf="stats && flipped">
         <iframe width="100%" height="100%" [src]="playOverwatchLink"></iframe>

@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
-export interface AddCardData {
-  region: Region;
-  platform: Platform;
-  battleTag: string;
-}
+import { BattleTag } from '@app/core/models';
 
 @Component({
   selector: 'app-add-card-dialog',
@@ -33,7 +29,7 @@ export class AddCardDialogComponent {
     this.dialogRef.close({
       platform: this.platform,
       region: this.region,
-      battleTag: this.battleTag
-    } as AddCardData);
+      name: this.battleTag
+    } as BattleTag);
   }
 }

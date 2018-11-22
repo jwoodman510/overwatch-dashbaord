@@ -16,11 +16,7 @@
   <app-player-card
     *ngFor="let bt of (battleTags$ | async)"
     [battleTag]="bt"
-    [stats]="getStats(bt)"
-    [error]="hasError(bt)"
-    (retry)="retry(bt)"
-    (refresh)="refresh(bt)"
-    (remove)="remove(bt)"
+    [hidden]="searchText?.length && filtered(bt)"
   >
   </app-player-card>
 </div>

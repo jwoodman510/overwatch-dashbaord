@@ -7,7 +7,7 @@ import { ResponsiveModule } from 'ngx-responsive';
 import { environment } from 'src/environments/environment';
 
 import { Environment } from './models';
-import { BattleTagService, StatsDataService } from './services';
+import { BattleTagService } from './services';
 import { BattleTagsState } from './state';
 
 @NgModule({
@@ -22,8 +22,7 @@ import { BattleTagsState } from './state';
       useValue: environment
     },
     BattleTagService,
-    CookieService,
-    StatsDataService
+    CookieService
   ]
 })
 export class CoreModule {}
