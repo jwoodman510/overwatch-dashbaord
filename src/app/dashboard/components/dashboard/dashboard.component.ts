@@ -1,12 +1,15 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { PlayerStats } from 'src/app/models';
-import { StatsDataService } from 'src/app/services';
-import {take, tap, catchError, filter} from 'rxjs/operators';
-import { Regions, Platforms } from 'src/app/constants';
-import { of } from 'rxjs';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { AddCardDialogComponent } from '../add-card/add-card.dialog';
+
+import { of } from 'rxjs';
+import { catchError, filter, take, tap } from 'rxjs/operators';
+
+import { PlayerStats } from '@app/core/models';
+import { StatsDataService } from '@app/core/services';
+import { Platforms, Regions } from '@app/shared/constants';
+
 import { BattletagService } from '../../services';
+import { AddCardDialogComponent } from '../add-card/add-card.dialog';
 
 @Component({
   selector: 'app-dashboard',
@@ -27,10 +30,11 @@ export class DashboardComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private battletagService: BattletagService,
-    private statsDataService: StatsDataService) {
-      this.stats = new Map<string, PlayerStats>();
-      this.errors = new Set<string>();
-      this.battleTags = this.sort(this.battletagService.get());
+    private statsDataService: StatsDataService
+  ) {
+    this.stats = new Map<string, PlayerStats>();
+    this.errors = new Set<string>();
+    this.battleTags = this.sort(this.battletagService.get());
   }
 
   ngOnInit(): void {
@@ -39,7 +43,9 @@ export class DashboardComponent implements OnInit {
 
   getBattleTags(): Array<string> {
     return this.searchText
-      ? this.battleTags.filter(x => x.toLowerCase().indexOf(this.searchText.toLowerCase()) >= 0)
+      ? this.battleTags.filter(
+          x => x.toLowerCase().indexOf(this.searchText.toLowerCase()) >= 0
+        )
       : this.battleTags;
   }
 
@@ -74,25 +80,31 @@ export class DashboardComponent implements OnInit {
       height: 'fit-content'
     });
 
-    dialogRef.afterClosed().pipe(
-      take(1),
-      filter(x => x && x.battletag),
-      tap(x => this.battleTags = [x.battletag].concat(this.battleTags)),
-      tap(x => this.loadProfile(x.battletag, x.platform, x.region)),
-      tap(x => this.battletagService.addEntry(x.battletag))
-    ).subscribe();
+    dialogRef
+      .afterClosed()
+      .pipe(
+        take(1),
+        filter(x => x && x.battletag),
+        tap(x => (this.battleTags = [x.battletag].concat(this.battleTags))),
+        tap(x => this.loadProfile(x.battletag, x.platform, x.region)),
+        tap(x => this.battletagService.addEntry(x.battletag))
+      )
+      .subscribe();
   }
 
   private loadProfile(bt: string, platform?: Platform, region?: Region): void {
-    this.statsDataService.getProfile(platform || this.platform, region || this.region, bt).pipe(
-      take(1),
-      tap(x => this.stats.set(bt, x)),
-      catchError(() => {
-        this.errors.add(bt);
+    this.statsDataService
+      .getProfile(platform || this.platform, region || this.region, bt)
+      .pipe(
+        take(1),
+        tap(x => this.stats.set(bt, x)),
+        catchError(() => {
+          this.errors.add(bt);
 
-        return of(undefined);
-      }),
-    ).subscribe();
+          return of(undefined);
+        })
+      )
+      .subscribe();
   }
 
   private sort = (data: Array<string>): Array<string> => {

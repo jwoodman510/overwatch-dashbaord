@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PlayerStats } from 'src/app/models';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
+import { PlayerStats } from '@app/core/models';
 
 @Component({
   selector: 'app-player-card',

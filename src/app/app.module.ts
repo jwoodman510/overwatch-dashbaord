@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { routes } from './routes';
-import { StatsDataService } from './services';
 
 @NgModule({
   imports: [
@@ -16,7 +15,6 @@ import { StatsDataService } from './services';
     RouterModule.forRoot(routes)
   ],
   declarations: [AppComponent],
-  providers: [StatsDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
