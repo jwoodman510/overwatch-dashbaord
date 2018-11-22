@@ -1,0 +1,23 @@
+{
+  "editor.formatOnSave": true,
+  "prettier.singleQuote": true,
+  "typescript.suggest.autoImports": true,
+  "typescript.validate.enable": true,
+  "tslint.enable": true,
+  "typescriptHero.imports.grouping": [
+    "/angular/",
+    "/rxjs/",
+    "Modules",
+    "Plains",
+    "/@app/",
+    "Workspace",
+    {
+      "identifier": "Remaining",
+      "order": "desc"
+    }
+  ],
+  "typescriptHero.imports.organizeOnSave": true,
+  "typescriptHero.imports.multiLineWrapThreshold": 80,
+  "typescriptHero.imports.multiLineTrailingComma": false,
+  "typescript.tsdk": "./ClientApp/node_modules/typescript/lib"
+}

@@ -1,21 +1,16 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router'; import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+
 import { CookieService } from 'ngx-cookie-service';
 
-import {
-  MatCardModule,
-  MatProgressSpinnerModule,
-  MatInputModule,
-  MatFormFieldModule,
-  MatIconModule,
-  MatButtonModule,
-  MatDialogModule,
-  MatSelectModule
-} from '@angular/material';
+import { SharedModule } from '@app/shared/shared.module';
 
+import {
+  AddCardDialogComponent,
+  DashboardComponent,
+  PlayerCardComponent
+} from './components';
 import { dashboardRoutes } from './dashboard-routes';
-import { DashboardComponent, PlayerCardComponent, AddCardDialogComponent } from './components';
 import { BattletagService } from './services';
 
 @NgModule({
@@ -24,20 +19,8 @@ import { BattletagService } from './services';
     DashboardComponent,
     PlayerCardComponent
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    RouterModule.forChild(dashboardRoutes)
-  ],
+  imports: [SharedModule, RouterModule.forChild(dashboardRoutes)],
   entryComponents: [AddCardDialogComponent],
   providers: [BattletagService, CookieService]
 })
-export class DashboardModule { }
+export class DashboardModule {}
