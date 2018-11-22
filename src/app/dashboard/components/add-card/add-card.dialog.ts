@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material';
 
+export interface AddCardData {
+  region: Region;
+  platform: Platform;
+  battleTag: string;
+}
+
 @Component({
   selector: 'app-add-card-dialog',
   templateUrl: './add-card.dialog.html',
@@ -9,21 +15,25 @@ import { MatDialogRef } from '@angular/material';
 export class AddCardDialogComponent {
   platform: Platform = 'pc';
   region: Region = 'na';
-  battletag: string;
+  battleTag: string;
 
-  private readonly battletagPattern = /^.+#[0-9]+$/;
+  private readonly battleTagPattern = /^.+#[0-9]+$/;
 
   constructor(private dialogRef: MatDialogRef<AddCardDialogComponent>) {}
 
   get valid(): boolean {
-    return this.battletag && this.battletag.length && this.battletagPattern.test(this.battletag);
+    return (
+      this.battleTag &&
+      this.battleTag.length &&
+      this.battleTagPattern.test(this.battleTag)
+    );
   }
 
   submit(): void {
     this.dialogRef.close({
       platform: this.platform,
       region: this.region,
-      battletag: this.battletag
-    });
+      battleTag: this.battleTag
+    } as AddCardData);
   }
 }

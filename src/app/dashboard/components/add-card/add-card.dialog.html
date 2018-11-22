@@ -1,7 +1,11 @@
 <h1 mat-dialog-title>Add Player Card</h1>
 <mat-dialog-content>
   <mat-form-field>
-    <mat-select placeholder="Platform" [value]="platform" [(ngModel)]="platform">
+    <mat-select
+      placeholder="Platform"
+      [value]="platform"
+      [(ngModel)]="platform"
+    >
       <mat-option [value]="'pc'">PC</mat-option>
       <mat-option [value]="'psn'">Playstation</mat-option>
       <mat-option [value]="'xbl'">Xbox</mat-option>
@@ -15,15 +19,24 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field>
-    <input matInput placeholder="BattleTag (Includes #1234)" [(ngModel)]="battletag">
+    <input
+      matInput
+      placeholder="BattleTag (Includes #1234)"
+      [(ngModel)]="battleTag"
+    />
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button class="cancel" mat-button [color]="'primary'" mat-dialog-close>
     Cancel
   </button>
-  <button class="submit" mat-button [color]="'accent'"
-    [disabled]="!valid" (click)="submit()">
+  <button
+    class="submit"
+    mat-button
+    [color]="'accent'"
+    [disabled]="!valid"
+    (click)="submit()"
+  >
     Submit
   </button>
 </mat-dialog-actions>

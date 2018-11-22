@@ -1,21 +1,27 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
+import { NgxsModule } from '@ngxs/store';
 import { CookieService } from 'ngx-cookie-service';
 import { ResponsiveModule } from 'ngx-responsive';
 import { environment } from 'src/environments/environment';
 
 import { Environment } from './models';
-import { BattletagService, StatsDataService } from './services';
+import { BattleTagService, StatsDataService } from './services';
+import { BattleTagsState } from './state';
 
 @NgModule({
-  imports: [HttpClientModule, ResponsiveModule.forRoot()],
+  imports: [
+    HttpClientModule,
+    NgxsModule.forRoot([BattleTagsState]),
+    ResponsiveModule.forRoot()
+  ],
   providers: [
     {
       provide: Environment,
       useValue: environment
     },
-    BattletagService,
+    BattleTagService,
     CookieService,
     StatsDataService
   ]

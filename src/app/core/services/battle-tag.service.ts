@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
+
 import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
-export class BattletagService {
+export class BattleTagService {
   private readonly ttl: Date;
   private readonly key = 'ovw-bt';
 
@@ -12,18 +13,22 @@ export class BattletagService {
     const data = this.get();
 
     if (!data.length) {
-      this.cookieService.set(this.key, JSON.stringify([
-        'woodman#11497',
-        'woodman#11369',
-        'JonnyPGood#1682',
-        'PyroMax#11230',
-        'FartMckenzie#1876',
-        'hannah#12408',
-        'KyleFresco#2795',
-        'KyleFresco#11192',
-        'MillaTime#11186',
-        'MillaTime#11829',
-      ]), this.ttl);
+      this.cookieService.set(
+        this.key,
+        JSON.stringify([
+          'woodman#11497',
+          'woodman#11369',
+          'JonnyPGood#1682',
+          'PyroMax#11230',
+          'FartMckenzie#1876',
+          'hannah#12408',
+          'KyleFresco#2795',
+          'KyleFresco#11192',
+          'MillaTime#11186',
+          'MillaTime#11829'
+        ]),
+        this.ttl
+      );
     }
   }
 
@@ -31,7 +36,7 @@ export class BattletagService {
     const cookieVal = this.cookieService.get(this.key);
 
     return cookieVal && cookieVal.length
-      ? JSON.parse(cookieVal) as Array<string>
+      ? (JSON.parse(cookieVal) as Array<string>)
       : [];
   }
 

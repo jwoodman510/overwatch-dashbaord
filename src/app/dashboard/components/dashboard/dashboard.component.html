@@ -1,6 +1,11 @@
 <mat-form-field class="search">
-  <input matInput placeholder="Search" [(ngModel)]="searchText">
-  <button *ngIf="searchText" matSuffix mat-icon-button (click)="searchText=''">
+  <input matInput placeholder="Search" [(ngModel)]="searchText" />
+  <button
+    *ngIf="searchText"
+    matSuffix
+    mat-icon-button
+    (click)="searchText = ''"
+  >
     <mat-icon>close</mat-icon>
   </button>
 </mat-form-field>
@@ -8,8 +13,14 @@
   <mat-icon>add_circle</mat-icon>
 </button>
 <div class="card-container">
-  <app-player-card *ngFor="let bt of getBattleTags()"
-    [battleTag]="bt" [stats]="getStats(bt)" [error]="hasError(bt)"
-    (retry)="retry(bt)" (refresh)="refresh(bt)" (remove)="remove(bt)">
+  <app-player-card
+    *ngFor="let bt of (battleTags$ | async)"
+    [battleTag]="bt"
+    [stats]="getStats(bt)"
+    [error]="hasError(bt)"
+    (retry)="retry(bt)"
+    (refresh)="refresh(bt)"
+    (remove)="remove(bt)"
+  >
   </app-player-card>
 </div>

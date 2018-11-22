@@ -1,2 +1,2 @@
-export * from './battletag.service';
+export * from './battle-tag.service';
 export * from './stats.data.service';
