@@ -9,7 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "publish": "ngh --dir=dist/overwatch-dashboard --cname=jonnypgood.com",
-    "prepublish": "ng build --prod --base-href \"/overwatch-dashboard/\""
+    "prepublish": "ng build --prod"
   },
   "private": true,
   "dependencies": {
