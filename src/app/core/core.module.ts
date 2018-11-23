@@ -2,17 +2,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { NgxsModule } from '@ngxs/store';
-import { CookieService } from 'ngx-cookie-service';
+import { LZStringModule, LZStringService } from 'ng-lz-string';
 import { ResponsiveModule } from 'ngx-responsive';
 import { environment } from 'src/environments/environment';
 
 import { Environment } from './models';
-import { BattleTagService } from './services';
+import { BattleTagService, StorageService } from './services';
 import { BattleTagsState } from './state';
 
 @NgModule({
   imports: [
     HttpClientModule,
+    LZStringModule,
     NgxsModule.forRoot([BattleTagsState]),
     ResponsiveModule.forRoot()
   ],
@@ -22,7 +23,8 @@ import { BattleTagsState } from './state';
       useValue: environment
     },
     BattleTagService,
-    CookieService
+    StorageService,
+    LZStringService
   ]
 })
 export class CoreModule {}

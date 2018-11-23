@@ -1,56 +1,44 @@
 import { Injectable } from '@angular/core';
 
-import { CookieService } from 'ngx-cookie-service';
-
 import { BattleTag } from '../models';
+import { StorageService } from './storage.service';
 
 @Injectable()
 export class BattleTagService {
-  private readonly ttl: Date;
   private readonly key = 'ovw-bt';
 
-  constructor(private cookieService: CookieService) {
-    this.ttl = new Date(new Date().setFullYear(new Date().getFullYear() + 1));
-
+  constructor(private storageService: StorageService) {
     const data = this.get();
 
     if (!data.length) {
-      this.cookieService.set(
-        this.key,
-        JSON.stringify([
-          'woodman#11497:na:pc',
-          'woodman#11369:na:pc',
-          'JonnyPGood#1682:na:pc',
-          'PyroMax#11230:na:pc',
-          'FartMckenzie#1876:na:pc'
-        ]),
-        this.ttl
-      );
+      this.storageService.set(this.key, [
+        'woodman#11497:na:pc',
+        'woodman#11369:na:pc',
+        'JonnyPGood#1682:na:pc',
+        'PyroMax#11230:na:pc',
+        'FartMckenzie#1876:na:pc'
+      ]);
     }
   }
 
   get(): Array<BattleTag> {
-    const cookie = this.cookieService.get(this.key);
-
-    const keys =
-      cookie && cookie.length ? (JSON.parse(cookie) as Array<string>) : [];
+    const keys = this.storageService.get<Array<string>>(this.key) || [];
 
     return keys.map(key => BattleTag.parseKey(key));
   }
 
   deleteEntry(bt: BattleTag): void {
-    this.setCookie(
+    this.set(
       this.get().filter(x => BattleTag.getKey(x) !== BattleTag.getKey(bt))
     );
   }
 
   addEntry(bt: BattleTag): void {
-    this.setCookie(this.get().concat(bt));
+    this.set(this.get().concat(bt));
   }
 
-  private setCookie(data: Array<BattleTag>): void {
+  set(data: Array<BattleTag>): void {
     const keys = data.map(x => BattleTag.getKey(x));
-    const json = JSON.stringify(keys);
-    this.cookieService.set(this.key, json, this.ttl);
+    this.storageService.set<Array<string>>(this.key, keys);
   }
 }
