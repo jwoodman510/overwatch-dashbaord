@@ -7,6 +7,7 @@ import { SharedModule } from '@app/shared/shared.module';
 
 import {
   AddCardDialogComponent,
+  AddDashboardDialogComponent,
   DashboardComponent,
   PlayerCardComponent
 } from './components';
@@ -17,6 +18,7 @@ import { StatsState } from './state';
 @NgModule({
   declarations: [
     AddCardDialogComponent,
+    AddDashboardDialogComponent,
     DashboardComponent,
     PlayerCardComponent
   ],
@@ -25,7 +27,7 @@ import { StatsState } from './state';
     RouterModule.forChild(dashboardRoutes),
     NgxsModule.forFeature([StatsState])
   ],
-  entryComponents: [AddCardDialogComponent],
+  entryComponents: [AddCardDialogComponent, AddDashboardDialogComponent],
   providers: [StatsDataService]
 })
 export class DashboardModule {}

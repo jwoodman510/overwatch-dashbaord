@@ -9,12 +9,16 @@ import { Select, Store } from '@ngxs/store';
 import { BattleTag, Dashboard } from '@app/core/models';
 import {
   AddBattleTag,
+  AddDashboard,
   BattleTagsState,
   LoadBattleTags,
   UserState
 } from '@app/core/state';
 
 import { AddCardDialogComponent } from '../add-card/add-card.dialog';
+import {
+  AddDashboardDialogComponent
+} from '../add-dashboard/add-dashboard.dialog';
 
 @Component({
   selector: 'app-dashboard',
@@ -49,7 +53,7 @@ export class DashboardComponent implements OnInit {
     return bt.name.toLowerCase().indexOf(this.searchText.toLowerCase()) === -1;
   }
 
-  openAddDialog(): void {
+  addBattleTag(): void {
     const dialogRef = this.dialog.open(AddCardDialogComponent, {
       width: '300px',
       height: 'fit-content'
@@ -60,6 +64,18 @@ export class DashboardComponent implements OnInit {
       .pipe(
         switchMap(x => this.store.dispatch(new AddBattleTag(this.dashboard, x)))
       )
+      .subscribe();
+  }
+
+  addDashboard(): void {
+    const dialogRef = this.dialog.open(AddDashboardDialogComponent, {
+      width: '300px',
+      height: 'fit-content'
+    });
+
+    dialogRef
+      .afterClosed()
+      .pipe(switchMap(x => this.store.dispatch(new AddDashboard(x))))
       .subscribe();
   }
 }

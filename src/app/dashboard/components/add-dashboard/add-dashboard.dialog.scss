@@ -1,0 +1,19 @@
+:host {
+  h1 {
+    text-align: center;
+  }
+  mat-dialog-content {
+    mat-form-field {
+      width: 100%;
+    }
+  }
+  mat-dialog-actions {
+    display: block;
+    button.cancel {
+      float: left;
+    }
+    button.submit {
+      float: right;
+    }
+  }
+}

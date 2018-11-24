@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Add Dashboard</h1>
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput placeholder="Name" [(ngModel)]="name" />
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button class="cancel" mat-button [color]="'primary'" mat-dialog-close>
+    Cancel
+  </button>
+  <button
+    class="submit"
+    mat-button
+    [color]="'accent'"
+    [disabled]="!name?.length || (nameExists() | async)"
+    (click)="submit()"
+  >
+    Submit
+  </button>
+</mat-dialog-actions>
