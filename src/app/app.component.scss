@@ -7,10 +7,12 @@
     z-index: 99;
     width: 100%;
     height: 50px;
+    display: grid;
     position: fixed;
     color: $accent;
     font-family: $font;
     background: $header-color;
+    grid-template-columns: 60px 0fr 1fr;
     h1 {
       margin: 5px 0px 0px 0px;
       text-align: center;

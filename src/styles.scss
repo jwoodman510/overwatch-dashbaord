@@ -6,4 +6,23 @@ $primary-light: mat-color($mat-primary, 500);
 body {
   background-repeat: no-repeat;
   background: linear-gradient($primary-light, $accent);
+  .nav-menu {
+    width: fit-content;
+    color: $header-color;
+    background-color: $accent;
+    .mat-menu-item {
+      mat-icon {
+        color: inherit !important;
+      }
+      span {
+        font-family: $font-alt;
+        font-weight: bold;
+        vertical-align: middle;
+      }
+      &:hover {
+        color: $accent;
+        background-color: $header-color;
+      }
+    }
+  }
 }
