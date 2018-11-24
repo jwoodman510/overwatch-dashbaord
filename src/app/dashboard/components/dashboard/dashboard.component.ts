@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
 import { Observable } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { filter, switchMap, tap } from 'rxjs/operators';
 
 import { Select, Store } from '@ngxs/store';
 
@@ -62,6 +62,7 @@ export class DashboardComponent implements OnInit {
     dialogRef
       .afterClosed()
       .pipe(
+        filter(x => !!x),
         switchMap(x => this.store.dispatch(new AddBattleTag(this.dashboard, x)))
       )
       .subscribe();
@@ -75,7 +76,10 @@ export class DashboardComponent implements OnInit {
 
     dialogRef
       .afterClosed()
-      .pipe(switchMap(x => this.store.dispatch(new AddDashboard(x))))
+      .pipe(
+        filter(x => x && x.length),
+        switchMap(x => this.store.dispatch(new AddDashboard(x)))
+      )
       .subscribe();
   }
 }
