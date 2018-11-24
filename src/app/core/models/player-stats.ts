@@ -1,3 +1,4 @@
+import { BattleTag } from './battle-tag';
 import { GameStats } from './game-stats';
 
 export class PlayerStats {
@@ -15,4 +16,6 @@ export class PlayerStats {
   endorsement: number;
   quickPlayStats: GameStats;
   competitiveStats: GameStats;
+
+  battleTag: BattleTag;
 }

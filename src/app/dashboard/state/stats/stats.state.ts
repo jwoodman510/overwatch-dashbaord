@@ -3,10 +3,10 @@ import { map, tap } from 'rxjs/operators';
 
 import { Action, State, StateContext } from '@ngxs/store';
 
-import { PlayerStats } from '@app/core/models';
+import { BattleTag, PlayerStats } from '@app/core/models';
 import { StatsDataService } from '@app/dashboard/services';
 
-import { LoadStats, RemoveStats } from './stats.actions';
+import { LoadStats } from './stats.actions';
 
 @State<Array<PlayerStats>>({
   name: 'stats',
@@ -20,6 +20,12 @@ export class StatsState {
     { getState, setState }: StateContext<Array<PlayerStats>>,
     action: LoadStats
   ): Observable<any> {
+    const key = BattleTag.getKey(action.battleTag);
+
+    if (!action.deep && getState().find(x => BattleTag.getKey(x) === key)) {
+      return of(undefined);
+    }
+
     return this.statsDataService
       .getProfile(
         action.battleTag.platform,
@@ -27,25 +33,9 @@ export class StatsState {
         action.battleTag.name
       )
       .pipe(
+        tap(x => (x.battleTag = action.battleTag)),
         map(x => getState().concat(x)),
         tap(x => setState(x))
       );
-  }
-
-  @Action(RemoveStats)
-  removeStats(
-    { getState, setState }: StateContext<Array<PlayerStats>>,
-    action: RemoveStats
-  ): Observable<void> {
-    const state = getState().filter(
-      x =>
-        x.name === action.battleTag.name &&
-        x.region === action.battleTag.region &&
-        x.platform === action.battleTag.platform
-    );
-
-    setState(state);
-
-    return of(undefined);
   }
 }

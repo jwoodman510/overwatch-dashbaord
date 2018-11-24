@@ -44,7 +44,7 @@ export class PlayerCardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(new LoadStats(this.battleTag));
+    this.store.dispatch(new LoadStats(this.battleTag, false));
 
     this.actions
       .pipe(
@@ -58,9 +58,12 @@ export class PlayerCardComponent implements OnInit {
       .select(StatsState)
       .pipe(
         filter((x: Array<PlayerStats>) => x && x.length > 0),
-        map(x => x.filter(y => y.region === this.battleTag.region)),
-        map(x => x.filter(y => y.platform === this.battleTag.platform)),
-        map(x => x.find(y => y.name === this.battleTag.name)),
+        map(x =>
+          x.find(
+            y =>
+              BattleTag.getKey(y.battleTag) === BattleTag.getKey(this.battleTag)
+          )
+        ),
         distinctUntilChanged()
       )
       .subscribe(x => (this._stats = x));
@@ -76,7 +79,7 @@ export class PlayerCardComponent implements OnInit {
 
   reload(): void {
     this._hasError = false;
-    this.store.dispatch(new LoadStats(this.battleTag));
+    this.store.dispatch(new LoadStats(this.battleTag, true));
   }
 
   get playOverwatchLink(): SafeResourceUrl {
