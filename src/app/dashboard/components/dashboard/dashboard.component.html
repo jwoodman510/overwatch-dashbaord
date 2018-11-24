@@ -15,6 +15,7 @@
 <div class="card-container">
   <app-player-card
     *ngFor="let bt of (battleTags$ | async)"
+    [dashboard]="dashboard"
     [battleTag]="bt"
     [hidden]="searchText?.length && filtered(bt)"
   >

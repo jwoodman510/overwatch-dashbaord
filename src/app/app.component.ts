@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Store } from '@ngxs/store';
 
-import { LoadBattleTags } from './core/state';
+import { LoadUser } from './core/state';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +15,6 @@ export class AppComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.store.dispatch(new LoadBattleTags());
+    this.store.dispatch(new LoadUser());
   }
 }

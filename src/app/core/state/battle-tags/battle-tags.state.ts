@@ -19,10 +19,11 @@ export class BattleTagsState {
   constructor(private battleTagService: BattleTagService) {}
 
   @Action(LoadBattleTags)
-  loadBattleTags({
-    setState
-  }: StateContext<Array<BattleTag>>): Observable<void> {
-    setState(this.battleTagService.get());
+  loadBattleTags(
+    { setState }: StateContext<Array<BattleTag>>,
+    action: LoadBattleTags
+  ): Observable<void> {
+    setState(this.battleTagService.get(action.dashboard));
 
     return of(undefined);
   }
@@ -39,7 +40,7 @@ export class BattleTagsState {
         x => BattleTag.getKey(x) === BattleTag.getKey(action.battleTag)
       )
     ) {
-      this.battleTagService.addEntry(action.battleTag);
+      this.battleTagService.addEntry(action.dashboard, action.battleTag);
 
       setState(state.concat(action.battleTag));
     }
@@ -56,7 +57,7 @@ export class BattleTagsState {
       x => BattleTag.getKey(x) !== BattleTag.getKey(action.battleTag)
     );
 
-    this.battleTagService.deleteEntry(action.battleTag);
+    this.battleTagService.deleteEntry(action.dashboard, action.battleTag);
 
     setState(state);
 

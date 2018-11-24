@@ -16,6 +16,9 @@ import { LoadStats, StatsState } from '@app/dashboard/state';
 })
 export class PlayerCardComponent implements OnInit {
   @Input()
+  dashboard: string;
+
+  @Input()
   battleTag: BattleTag;
 
   get flipped(): boolean {
@@ -68,7 +71,7 @@ export class PlayerCardComponent implements OnInit {
   }
 
   remove(): void {
-    this.store.dispatch(new RemoveBattleTag(this.battleTag));
+    this.store.dispatch(new RemoveBattleTag(this.dashboard, this.battleTag));
   }
 
   reload(): void {

@@ -7,14 +7,14 @@ import { ResponsiveModule } from 'ngx-responsive';
 import { environment } from 'src/environments/environment';
 
 import { Environment } from './models';
-import { BattleTagService, StorageService } from './services';
-import { BattleTagsState } from './state';
+import { BattleTagService, StorageService, UserService } from './services';
+import { BattleTagsState, UserState } from './state';
 
 @NgModule({
   imports: [
     HttpClientModule,
     LZStringModule,
-    NgxsModule.forRoot([BattleTagsState]),
+    NgxsModule.forRoot([BattleTagsState, UserState]),
     ResponsiveModule.forRoot()
   ],
   providers: [
@@ -24,7 +24,8 @@ import { BattleTagsState } from './state';
     },
     BattleTagService,
     StorageService,
-    LZStringService
+    LZStringService,
+    UserService
   ]
 })
 export class CoreModule {}
