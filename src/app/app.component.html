@@ -24,6 +24,6 @@
       <span>{{ d.name }}</span>
     </button>
   </mat-menu>
-  <h1>MY OVERWATCH - {{ (activeDashboard$ | async).name }}</h1>
+  <h1>{{ (activeDashboard$ | async).name }}</h1>
 </div>
 <div class="body"><router-outlet></router-outlet></div>
