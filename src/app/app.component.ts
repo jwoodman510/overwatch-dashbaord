@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { Select, Store } from '@ngxs/store';
 
@@ -29,5 +30,9 @@ export class AppComponent implements OnInit {
 
   goToDashboard(dashboard: Dashboard): void {
     this.store.dispatch(new SetActiveDashboard(dashboard));
+  }
+
+  isActive(dashboard: Dashboard): Observable<boolean> {
+    return this.activeDashboard$.pipe(map(x => x.key === dashboard.key));
   }
 }

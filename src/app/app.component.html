@@ -14,11 +14,13 @@
   </mat-menu>
   <mat-menu #dashboards="matMenu">
     <button
+      *ngFor="let d of (dashboards$ | async)"
       class="dashboard"
       mat-menu-item
-      *ngFor="let d of (dashboards$ | async)"
       (click)="goToDashboard(d)"
     >
+      <mat-icon *ngIf="(isActive(d) | async); else: noicon">done</mat-icon>
+      <ng-template #noicon><mat-icon></mat-icon></ng-template>
       <span>{{ d.name }}</span>
     </button>
   </mat-menu>
