@@ -18,6 +18,9 @@ export class AppComponent implements OnInit {
   @Select(UserState.dashboards)
   dashboards$: Observable<Array<Dashboard>>;
 
+  @Select(UserState.activeDashboard)
+  activeDashboard$: Observable<Dashboard>;
+
   constructor(private store: Store) {}
 
   ngOnInit(): void {
