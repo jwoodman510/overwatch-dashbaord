@@ -9,9 +9,19 @@
     <mat-icon>close</mat-icon>
   </button>
 </mat-form-field>
-<button mat-icon-button class="add" (click)="openAddDialog()">
+<button mat-icon-button [matMenuTriggerFor]="add" class="add">
   <mat-icon>add_circle</mat-icon>
 </button>
+<mat-menu #add="matMenu">
+  <button mat-menu-item (click)="openAddDialog()">
+    <mat-icon>person_add</mat-icon>
+    <span>Add BattleTag</span>
+  </button>
+  <button mat-menu-item>
+    <mat-icon>group_add</mat-icon>
+    <span>Add Dashboard</span>
+  </button>
+</mat-menu>
 <div class="card-container">
   <app-player-card
     *ngFor="let bt of (battleTags$ | async)"
