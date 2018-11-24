@@ -1,5 +1,5 @@
 export class Dashboard {
-  static defaultName = 'default';
+  static defaultName = 'Default';
 
   key: string;
   name: string;

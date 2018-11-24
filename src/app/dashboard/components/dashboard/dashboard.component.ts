@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
 
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 
-import { Store } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 
 import { BattleTag, Dashboard } from '@app/core/models';
-import { AddBattleTag, BattleTagsState, LoadBattleTags } from '@app/core/state';
+import {
+  AddBattleTag,
+  BattleTagsState,
+  LoadBattleTags,
+  UserState
+} from '@app/core/state';
 
 import { AddCardDialogComponent } from '../add-card/add-card.dialog';
 
@@ -18,24 +22,27 @@ import { AddCardDialogComponent } from '../add-card/add-card.dialog';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  dashboard: string;
   searchText: string;
+  dashboard: string;
+
+  @Select(UserState.activeDashboard)
+  dashboard$: Observable<Dashboard>;
 
   readonly battleTags$: Observable<Array<BattleTag>>;
 
-  constructor(
-    private store: Store,
-    private dialog: MatDialog,
-    private route: ActivatedRoute
-  ) {
+  constructor(private store: Store, private dialog: MatDialog) {
     this.battleTags$ = this.store.select(BattleTagsState);
   }
 
   ngOnInit(): void {
-    this.dashboard =
-      this.route.snapshot.data['dashboard'] || Dashboard.defaultName;
-
-    this.store.dispatch(new LoadBattleTags(this.dashboard));
+    this.dashboard$
+      .pipe(
+        tap(x => (this.dashboard = x.key)),
+        switchMap(() => {
+          return this.store.dispatch(new LoadBattleTags(this.dashboard));
+        })
+      )
+      .subscribe();
   }
 
   filtered(bt: BattleTag): boolean {

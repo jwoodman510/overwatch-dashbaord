@@ -6,7 +6,7 @@ $primary-light: mat-color($mat-primary, 500);
 body {
   background-repeat: no-repeat;
   background: linear-gradient($primary-light, $accent);
-  .nav-menu {
+  .mat-menu-panel {
     width: fit-content;
     color: $header-color;
     background-color: $accent;
@@ -22,6 +22,9 @@ body {
       &:hover {
         color: $accent;
         background-color: $header-color;
+      }
+      .dashboard {
+        text-align: center;
       }
     }
   }

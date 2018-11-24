@@ -1,11 +1,11 @@
 import { Observable, of } from 'rxjs';
 
-import { Action, State, StateContext } from '@ngxs/store';
+import { Action, Selector, State, StateContext } from '@ngxs/store';
 
 import { Dashboard, User } from '@app/core/models';
 import { StorageService, UserService } from '@app/core/services';
 
-import { LoadUser } from './user.actions';
+import { LoadUser, SetActiveDashboard } from './user.actions';
 
 @State<User>({
   name: 'user'
@@ -16,6 +16,16 @@ export class UserState {
     private storageService: StorageService
   ) {}
 
+  @Selector()
+  static dashboards(state: User): Array<Dashboard> {
+    return state.dashboards;
+  }
+
+  @Selector()
+  static activeDashboard(state: User): Dashboard {
+    return state.activeDashboard;
+  }
+
   @Action(LoadUser)
   loadUser({ setState }: StateContext<User>): Observable<void> {
     let user = this.userService.get();
@@ -25,7 +35,21 @@ export class UserState {
       user = this.userService.get();
     }
 
+    user.activeDashboard = user.dashboards[0];
+
     setState(user);
+
+    return of(undefined);
+  }
+
+  @Action(SetActiveDashboard)
+  setActiveDashboard(
+    { patchState }: StateContext<User>,
+    action: SetActiveDashboard
+  ): Observable<void> {
+    patchState({
+      activeDashboard: action.dashboard
+    });
 
     return of(undefined);
   }
