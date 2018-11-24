@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 
 import { Select, Store } from '@ngxs/store';
 
@@ -26,6 +26,16 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(new LoadUser());
+  }
+
+  goToDefaultDashboard(): void {
+    this.dashboards$
+      .pipe(
+        take(1),
+        map(x => x.find(y => y.isDefault)),
+        switchMap(x => this.store.dispatch(new SetActiveDashboard(x)))
+      )
+      .subscribe();
   }
 
   goToDashboard(dashboard: Dashboard): void {

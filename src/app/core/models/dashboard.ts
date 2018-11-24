@@ -3,4 +3,5 @@ export class Dashboard {
 
   key: string;
   name: string;
+  isDefault?: boolean;
 }

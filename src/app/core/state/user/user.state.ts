@@ -35,7 +35,16 @@ export class UserState {
       user = this.userService.get();
     }
 
-    user.activeDashboard = user.dashboards[0];
+    user.activeDashboard = user.dashboards.find(x => x.isDefault);
+
+    if (!user.activeDashboard) {
+      const defaultDashboard = user.dashboards[0];
+      defaultDashboard.isDefault = true;
+      this.userService.updateDashboard(defaultDashboard);
+
+      user = this.userService.get();
+      user.activeDashboard = defaultDashboard;
+    }
 
     setState(user);
 
@@ -79,6 +88,12 @@ export class UserState {
 
   private migrateV1Dashboard(): void {
     const key = this.userService.addDashboard(Dashboard.defaultName);
+
+    this.userService.updateDashboard({
+      key,
+      name: Dashboard.defaultName,
+      isDefault: true
+    });
 
     const v1Keys = this.storageService.get<Array<string>>('ovw-bt') || [
       'woodman#11497:na:pc',

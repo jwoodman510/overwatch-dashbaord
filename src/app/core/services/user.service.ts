@@ -34,6 +34,25 @@ export class UserService {
     return key;
   }
 
+  updateDashboard(dashboard: Dashboard): void {
+    const dashboards =
+      this.storageService.get<Array<Dashboard>>(this.dashboardsKey) || [];
+
+    const index = dashboards.findIndex(x => x.key === dashboard.key);
+
+    if (index >= 0) {
+      dashboards[index].name = dashboard.name;
+
+      if (dashboard.isDefault) {
+        dashboards.forEach(x => (x.isDefault = false));
+      }
+
+      dashboards[index].isDefault = dashboard.isDefault;
+
+      this.storageService.set(this.dashboardsKey, dashboards);
+    }
+  }
+
   removeDashboard(key: string): void {
     const dashboards = this.storageService
       .get<Array<Dashboard>>(this.dashboardsKey)
