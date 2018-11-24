@@ -24,6 +24,21 @@
       <span>{{ d.name }}</span>
     </button>
   </mat-menu>
-  <h1>{{ (activeDashboard$ | async).name }}</h1>
+  <h1 *ngIf="!editMode; else: edit">
+    <mat-icon (click)="editDashboard()">edit</mat-icon>
+    {{ (activeDashboard$ | async).name }}
+  </h1>
+  <ng-template #edit>
+    <mat-form-field class="header-field">
+      <input
+        matInput
+        [(ngModel)]="dashboardName"
+        [value]="dashboardName"
+        autofocus
+        (blur)="updateDashboard()"
+        (keydown)="onKeyDown($event)"
+      />
+    </mat-form-field>
+  </ng-template>
 </div>
 <div class="body"><router-outlet></router-outlet></div>

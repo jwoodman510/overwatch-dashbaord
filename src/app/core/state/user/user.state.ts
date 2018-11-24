@@ -5,7 +5,12 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Dashboard, User } from '@app/core/models';
 import { StorageService, UserService } from '@app/core/services';
 
-import { AddDashboard, LoadUser, SetActiveDashboard } from './user.actions';
+import {
+  AddDashboard,
+  LoadUser,
+  SetActiveDashboard,
+  UpdateDashboard
+} from './user.actions';
 
 @State<User>({
   name: 'user'
@@ -72,6 +77,41 @@ export class UserState {
     });
 
     return dispatch(new SetActiveDashboard(dashboard));
+  }
+
+  @Action(UpdateDashboard)
+  updateDashboard(
+    { getState, patchState }: StateContext<User>,
+    action: UpdateDashboard
+  ): Observable<void> {
+    if (
+      getState()
+        .dashboards.filter(x => x.key !== action.dashboard.key)
+        .some(x => x.name === action.dashboard.name)
+    ) {
+      return throwError('conflict');
+    }
+
+    const state = getState();
+    const index = state.dashboards.findIndex(
+      x => x.key === action.dashboard.key
+    );
+
+    if (index >= 0) {
+      this.userService.updateDashboard(action.dashboard);
+
+      patchState({
+        dashboards: state.dashboards
+      });
+
+      if (state.activeDashboard.key === action.dashboard.key) {
+        patchState({
+          activeDashboard: action.dashboard
+        });
+      }
+    }
+
+    return of(undefined);
   }
 
   @Action(SetActiveDashboard)

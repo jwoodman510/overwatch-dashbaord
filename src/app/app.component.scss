@@ -17,6 +17,9 @@
       margin: 5px 0px 0px -60px;
       text-align: center;
     }
+    mat-form-field {
+      width: calc(100% - 60px);
+    }
   }
   .body {
     width: 100%;

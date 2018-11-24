@@ -10,6 +10,11 @@ export class AddDashboard {
   constructor(public name: string) {}
 }
 
+export class UpdateDashboard {
+  static readonly type = '[Global] Update Dashboard';
+  constructor(public dashboard: Dashboard) {}
+}
+
 export class SetActiveDashboard {
   static readonly type = '[Global] Set Active Dashboard';
   constructor(public dashboard: Dashboard) {}

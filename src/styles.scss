@@ -25,4 +25,10 @@ body {
       }
     }
   }
+  .header-field {
+    .mat-form-field-underline {
+      color: $accent;
+      background-color: $accent;
+    }
+  }
 }
