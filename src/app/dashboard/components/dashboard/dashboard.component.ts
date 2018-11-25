@@ -26,6 +26,7 @@ import {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  header: string;
   searchText: string;
   dashboard: string;
 
@@ -42,6 +43,7 @@ export class DashboardComponent implements OnInit {
     this.dashboard$
       .pipe(
         tap(x => (this.dashboard = x.key)),
+        tap(x => (this.header = x.name)),
         switchMap(() => {
           return this.store.dispatch(new LoadBattleTags(this.dashboard));
         })

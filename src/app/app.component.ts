@@ -13,6 +13,7 @@ import {
   UpdateDashboard,
   UserState
 } from './core/state';
+import { DashboardComponent } from './dashboard/components';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,8 @@ import {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  canEdit = false;
+  header: string;
   editMode = false;
   dashboardName: string;
 
@@ -33,6 +36,14 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(new LoadUser());
+  }
+
+  activateRoute(event: any): void {
+    this.canEdit = event instanceof DashboardComponent;
+
+    if (!this.canEdit) {
+      this.header = event.header;
+    }
   }
 
   editDashboard(): void {
@@ -74,13 +85,14 @@ export class AppComponent implements OnInit {
         take(1),
         map(x => x.find(y => y.isDefault)),
         switchMap(x => this.store.dispatch(new SetActiveDashboard(x))),
-        tap(() => this.router.navigate(['/']))
+        tap(() => this.router.navigate(['/dashboard']))
       )
       .subscribe();
   }
 
   goToDashboard(dashboard: Dashboard): void {
     this.store.dispatch(new SetActiveDashboard(dashboard));
+    this.router.navigate(['/dashboard']);
   }
 
   isActive(dashboard: Dashboard): Observable<boolean> {
