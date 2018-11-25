@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 import { map, switchMap, take, tap } from 'rxjs/operators';
@@ -28,7 +29,7 @@ export class AppComponent implements OnInit {
   @Select(UserState.activeDashboard)
   activeDashboard$: Observable<Dashboard>;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {
     this.store.dispatch(new LoadUser());
@@ -72,7 +73,8 @@ export class AppComponent implements OnInit {
       .pipe(
         take(1),
         map(x => x.find(y => y.isDefault)),
-        switchMap(x => this.store.dispatch(new SetActiveDashboard(x)))
+        switchMap(x => this.store.dispatch(new SetActiveDashboard(x))),
+        tap(() => this.router.navigate(['/']))
       )
       .subscribe();
   }

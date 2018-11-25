@@ -9,5 +9,14 @@ export const routes: Routes = [
         loadChildren: './dashboard/dashboard.module#DashboardModule'
       }
     ]
+  },
+  {
+    path: 'settings',
+    children: [
+      {
+        path: '',
+        loadChildren: './settings/settings.module#SettingsModule'
+      }
+    ]
   }
 ];
