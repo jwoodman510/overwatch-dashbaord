@@ -1,12 +1,17 @@
 import { Component } from '@angular/core';
 
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Select, Store } from '@ngxs/store';
 
 import { Dashboard, User } from '@app/core/models';
-import { DeleteDashboard, UpdateDashboard, UserState } from '@app/core/state';
+import {
+  AddDashboard,
+  DeleteDashboard,
+  UpdateDashboard,
+  UserState
+} from '@app/core/state';
 
 @Component({
   selector: 'app-settings',
@@ -15,6 +20,7 @@ import { DeleteDashboard, UpdateDashboard, UserState } from '@app/core/state';
 })
 export class SettingsComponent {
   readonly header = 'Settings';
+  newDashboard: Dashboard;
 
   constructor(private store: Store) {}
 
@@ -30,6 +36,19 @@ export class SettingsComponent {
     this.store.dispatch(new UpdateDashboard(dashboard));
   }
 
+  addDashboard(): void {
+    this.newDashboard = new Dashboard();
+  }
+
+  cancelCreate(): void {
+    this.newDashboard = undefined;
+  }
+
+  saveCreate(): void {
+    this.store.dispatch(new AddDashboard(this.newDashboard.name));
+    this.newDashboard = undefined;
+  }
+
   updateName(dashboard: Dashboard, name: string): void {
     dashboard.name = name;
 
@@ -41,6 +60,10 @@ export class SettingsComponent {
   }
 
   invalid(dashboard: Dashboard, name: string): Observable<boolean> {
+    if (!name || !name.length) {
+      return of(true);
+    }
+
     return this.store.selectOnce(UserState).pipe(
       map((x: User) => x.dashboards),
       map(x => x.filter(y => y.key !== dashboard.key)),

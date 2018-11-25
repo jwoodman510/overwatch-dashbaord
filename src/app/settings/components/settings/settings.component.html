@@ -1,5 +1,12 @@
-<mat-card> <mat-card-title>Dashboards</mat-card-title> </mat-card>
-<mat-accordion [multi]="true">
+<mat-card class="header">
+  <mat-card-title>
+    <h4>Dashboards</h4>
+    <button mat-icon-button (click)="addDashboard()" [disabled]="newDashboard">
+      <mat-icon>add_circle</mat-icon>
+    </button>
+  </mat-card-title>
+</mat-card>
+<mat-accordion [multi]="false">
   <mat-expansion-panel *ngFor="let d of (dashboards$ | async)">
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -34,3 +41,27 @@
     </div>
   </mat-expansion-panel>
 </mat-accordion>
+<mat-card *ngIf="newDashboard" class="new-dashboard">
+  <mat-card-title><h4>New Dashboard</h4></mat-card-title>
+  <mat-form-field class="name">
+    <input
+      #newName
+      matInput
+      [(ngModel)]="newDashboard.name"
+      placeholder="Name"
+    />
+  </mat-form-field>
+  <div class="actions">
+    <button mat-raised-button class="cancel" (click)="cancelCreate()">
+      Cancel
+    </button>
+    <button
+      mat-raised-button
+      class="save"
+      [disabled]="invalid(newDashboard, newDashboard.name) | async"
+      (click)="saveCreate()"
+    >
+      Save
+    </button>
+  </div>
+</mat-card>

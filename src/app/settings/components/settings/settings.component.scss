@@ -2,13 +2,28 @@
 
 :host {
   mat-card {
-    margin-bottom: 20px;
-    mat-card-title {
-      font-family: $font;
+    h4 {
+      margin: 10px;
       text-align: center;
+      text-align: center;
+      font-family: $font;
+    }
+  }
+  mat-card.header {
+    margin-bottom: 20px;
+    &.header {
+      mat-card-title {
+        display: grid;
+        grid-template-columns: 1fr 40px;
+        button {
+          color: $accent;
+          align-self: center;
+        }
+      }
     }
   }
   mat-accordion {
+    margin-bottom: 20px;
     mat-expansion-panel {
       mat-expansion-panel-header {
         mat-panel-title {
@@ -36,6 +51,26 @@
             }
           }
         }
+      }
+    }
+  }
+  mat-card.new-dashboard {
+    margin-top: 20px;
+    mat-form-field.name {
+      width: 100%;
+    }
+    .actions {
+      button.save {
+        float: right;
+        color: $primary;
+        background: $accent;
+        &[disabled] {
+          opacity: 0.5;
+        }
+      }
+      button.cancel {
+        color: $accent;
+        background: $primary;
       }
     }
   }
