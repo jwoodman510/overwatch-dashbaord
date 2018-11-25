@@ -13,7 +13,6 @@ import {
   UpdateDashboard,
   UserState
 } from './core/state';
-import { DashboardComponent } from './dashboard/components';
 
 @Component({
   selector: 'app-root',
@@ -39,11 +38,7 @@ export class AppComponent implements OnInit {
   }
 
   activateRoute(event: any): void {
-    this.canEdit = event instanceof DashboardComponent;
-
-    if (!this.canEdit) {
-      this.header = event.header;
-    }
+    this.header = event.header;
   }
 
   editDashboard(): void {

@@ -28,30 +28,7 @@
       <span>{{ d.name }}</span>
     </button>
   </mat-menu>
-  <h1 *ngIf="!canEdit; else: editable">{{ header }}</h1>
-  <ng-template #editable>
-    <h1 class="editable" *ngIf="!editMode; else: edit">
-      <button mat-icon-button>
-        <mat-icon (click)="editDashboard()">edit</mat-icon>
-      </button>
-      <span>{{ (activeDashboard$ | async).name }}</span>
-    </h1>
-    <ng-template #edit>
-      <mat-form-field class="header-field">
-        <input
-          matInput
-          [(ngModel)]="dashboardName"
-          [value]="dashboardName"
-          autofocus
-          (blur)="updateDashboard()"
-          (keydown)="onKeyDown($event)"
-        />
-        <button mat-icon-button matSuffix (click)="updateDashboard()">
-          <mat-icon>done</mat-icon>
-        </button>
-      </mat-form-field>
-    </ng-template>
-  </ng-template>
+  <h1>{{ header || (activeDashboard$ | async)?.name }}</h1>
 </div>
 <div class="body">
   <router-outlet (activate)="activateRoute($event)"></router-outlet>
