@@ -35,6 +35,8 @@ export class BattleTagsState {
   ): Observable<void> {
     const state = getState();
 
+    const dashboard = this.battleTagService.get(action.dashboard);
+
     if (
       !state.some(
         x => BattleTag.getKey(x) === BattleTag.getKey(action.battleTag)
@@ -43,6 +45,12 @@ export class BattleTagsState {
       this.battleTagService.addEntry(action.dashboard, action.battleTag);
 
       setState(state.concat(action.battleTag));
+    } else if (
+      !dashboard.some(
+        x => BattleTag.getKey(x) === BattleTag.getKey(action.battleTag)
+      )
+    ) {
+      this.battleTagService.addEntry(action.dashboard, action.battleTag);
     }
 
     return of(undefined);

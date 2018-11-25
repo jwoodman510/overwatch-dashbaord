@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
+import { Observable } from 'rxjs';
 import { distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
 
 import { Actions, ofActionErrored, Store } from '@ngxs/store';
 
-import { BattleTag, PlayerStats } from '@app/core/models';
-import { RemoveBattleTag } from '@app/core/state';
+import { BattleTag, Dashboard, PlayerStats, User } from '@app/core/models';
+import { AddBattleTag, RemoveBattleTag, UserState } from '@app/core/state';
 import { LoadStats, StatsState } from '@app/dashboard/state';
 
 @Component({
@@ -20,6 +21,8 @@ export class PlayerCardComponent implements OnInit {
 
   @Input()
   battleTag: BattleTag;
+
+  dashboards$: Observable<Array<Dashboard>>;
 
   get flipped(): boolean {
     return this._flipped;
@@ -45,6 +48,11 @@ export class PlayerCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(new LoadStats(this.battleTag, false));
+
+    this.dashboards$ = this.store.select(UserState).pipe(
+      map((x: User) => x.dashboards),
+      map(x => x.filter(y => y.key !== this.dashboard))
+    );
 
     this.actions
       .pipe(
@@ -80,6 +88,10 @@ export class PlayerCardComponent implements OnInit {
   reload(): void {
     this._hasError = false;
     this.store.dispatch(new LoadStats(this.battleTag, true));
+  }
+
+  send(dashboard: Dashboard): void {
+    this.store.dispatch(new AddBattleTag(dashboard.key, this.battleTag));
   }
 
   get playOverwatchLink(): SafeResourceUrl {

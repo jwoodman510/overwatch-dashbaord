@@ -5,6 +5,18 @@
         <button class="flip" mat-icon-button (click)="flip()">
           <mat-icon>rotate_right</mat-icon>
         </button>
+        <button class="flip" mat-icon-button [matMenuTriggerFor]="sendMenu">
+          <mat-icon>send</mat-icon>
+        </button>
+        <mat-menu #sendMenu="matMenu">
+          <button
+            *ngFor="let d of (dashboards$ | async)"
+            mat-menu-item
+            (click)="send(d)"
+          >
+            {{ d.name }}
+          </button>
+        </mat-menu>
         <button class="close" mat-icon-button (click)="remove()">
           <mat-icon>close</mat-icon>
         </button>
@@ -72,6 +84,18 @@
         <button class="flip" mat-icon-button (click)="flip()">
           <mat-icon>rotate_right</mat-icon>
         </button>
+        <button class="flip" mat-icon-button [matMenuTriggerFor]="sendMenu">
+          <mat-icon>send</mat-icon>
+        </button>
+        <mat-menu #sendMenu="matMenu">
+          <button
+            *ngFor="let d of (dashboards$ | async)"
+            mat-menu-item
+            (click)="send(d)"
+          >
+            {{ d.name }}
+          </button>
+        </mat-menu>
         <button class="close" mat-icon-button (click)="remove()">
           <mat-icon>close</mat-icon>
         </button>
