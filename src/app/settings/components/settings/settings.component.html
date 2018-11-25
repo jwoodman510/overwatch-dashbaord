@@ -51,6 +51,15 @@
       placeholder="Name"
     />
   </mat-form-field>
+  <div class="default">
+    <mat-slide-toggle
+      [checked]="false"
+      [labelPosition]="'before'"
+      (change)="newDashboard.isDefault = $event.checked"
+    >
+      <span>Set as Default</span>
+    </mat-slide-toggle>
+  </div>
   <div class="actions">
     <button mat-raised-button class="cancel" (click)="cancelCreate()">
       Cancel

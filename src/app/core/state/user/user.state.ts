@@ -70,8 +70,16 @@ export class UserState {
 
     const dashboard: Dashboard = {
       key,
-      name: action.name
+      name: action.name,
+      isDefault: action.isDefault
     };
+
+    if (dashboard.isDefault) {
+      getState().dashboards.forEach(x => {
+        x.isDefault = false;
+        this.userService.updateDashboard(x);
+      });
+    }
 
     patchState({
       dashboards: getState().dashboards.concat(dashboard)

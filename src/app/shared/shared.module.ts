@@ -11,7 +11,8 @@ import {
   MatInputModule,
   MatMenuModule,
   MatProgressSpinnerModule,
-  MatSelectModule
+  MatSelectModule,
+  MatSlideToggleModule
 } from '@angular/material';
 
 @NgModule({
@@ -27,7 +28,8 @@ import {
     MatInputModule,
     MatMenuModule,
     MatProgressSpinnerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSlideToggleModule
   ],
   exports: [
     CommonModule,
@@ -41,7 +43,8 @@ import {
     MatInputModule,
     MatMenuModule,
     MatProgressSpinnerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSlideToggleModule
   ]
 })
 export class SharedModule {}

@@ -45,7 +45,9 @@ export class SettingsComponent {
   }
 
   saveCreate(): void {
-    this.store.dispatch(new AddDashboard(this.newDashboard.name));
+    this.store.dispatch(
+      new AddDashboard(this.newDashboard.name, this.newDashboard.isDefault)
+    );
     this.newDashboard = undefined;
   }
 

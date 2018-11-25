@@ -7,7 +7,7 @@ export class LoadUser {
 
 export class AddDashboard {
   static readonly type = '[Global] Add Dashboard';
-  constructor(public name: string) {}
+  constructor(public name: string, public isDefault = false) {}
 }
 
 export class UpdateDashboard {
