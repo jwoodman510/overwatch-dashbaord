@@ -28,8 +28,11 @@
       grid-template-rows: 1fr 1fr;
       grid-template-columns: 1fr 0fr 0fr;
       h1 {
-        margin: 5px 0px 0px 0px;
+        overflow: hidden;
         text-align: center;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        margin: 5px 0px 0px 0px;
       }
       mat-form-field {
         width: 100%;

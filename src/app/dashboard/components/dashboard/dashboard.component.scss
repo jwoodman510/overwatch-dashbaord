@@ -5,33 +5,37 @@
     width: 90%;
   }
   button.add {
+    right: 0;
+    width: 40px;
     z-index: 99;
     position: fixed;
-    text-align: right;
-    padding-right: 5px;
     mat-icon {
       color: $header-color;
     }
   }
   .player-card-container {
-    display: grid;
-    grid-row-gap: 10px;
-    justify-items: center;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    @media (max-width: $breakpoint-max-lg) {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-    @media (max-width: $breakpoint-max-md) {
-      grid-template-columns: 1fr 1fr;
-    }
-    @media (max-width: $breakpoint-max-sm) {
-      grid-template-columns: 1fr;
-    }
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100% - 40px);
     app-player-card {
+      margin: 20px;
       width: 300px;
       min-width: 300px;
       min-height: 450px;
-      @media (max-width: $breakpoint-max-xs) {
+      margin-bottom: 0px;
+    }
+  }
+  @media only screen and (max-width: $breakpoint-min-sm) {
+    .player-card-container {
+      margin-top: -40px;
+      app-player-card {
+        margin: 20px 0px;
+      }
+    }
+  }
+  @media only screen and (max-width: 320px) {
+    .player-card-container {
+      app-player-card {
         width: 250px;
         min-width: 250px;
       }
