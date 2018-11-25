@@ -98,6 +98,18 @@ export class UserState {
     );
 
     if (index >= 0) {
+      if (action.dashboard.isDefault) {
+        state.dashboards
+          .filter(x => x.key !== action.dashboard.key)
+          .forEach(x => {
+            x.isDefault = false;
+            this.userService.updateDashboard(x);
+          });
+      }
+
+      state.dashboards[index].name = action.dashboard.name;
+      state.dashboards[index].isDefault = action.dashboard.isDefault;
+
       this.userService.updateDashboard(action.dashboard);
 
       patchState({

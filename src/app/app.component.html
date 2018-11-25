@@ -30,7 +30,7 @@
   </mat-menu>
   <h1 *ngIf="!canEdit; else: editable">{{ header }}</h1>
   <ng-template #editable>
-    <h1 *ngIf="!editMode; else: edit">
+    <h1 class="editable" *ngIf="!editMode; else: edit">
       <button mat-icon-button>
         <mat-icon (click)="editDashboard()">edit</mat-icon>
       </button>

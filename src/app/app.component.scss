@@ -33,6 +33,9 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         margin: 5px 0px 0px 0px;
+        &.editable {
+          text-align: start;
+        }
       }
       mat-form-field {
         width: 100%;

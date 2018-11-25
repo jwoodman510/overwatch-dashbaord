@@ -1,1 +1,13 @@
-<h1>hello world</h1>
+<mat-card> <mat-card-title>Dashboards</mat-card-title> </mat-card>
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let d of (dashboards$ | async)">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon (click)="setDefault($event, d)">
+          {{ d.isDefault ? 'favorite' : 'favorite_border' }}
+        </mat-icon>
+      </mat-panel-title>
+      <mat-panel-description>{{ d.name }}</mat-panel-description>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+</mat-accordion>
