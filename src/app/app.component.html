@@ -25,8 +25,10 @@
     </button>
   </mat-menu>
   <h1 *ngIf="!editMode; else: edit">
-    <mat-icon (click)="editDashboard()">edit</mat-icon>
-    {{ (activeDashboard$ | async).name }}
+    <button mat-icon-button>
+      <mat-icon (click)="editDashboard()">edit</mat-icon>
+    </button>
+    <span>{{ (activeDashboard$ | async).name }}</span>
   </h1>
   <ng-template #edit>
     <mat-form-field class="header-field">
@@ -38,6 +40,9 @@
         (blur)="updateDashboard()"
         (keydown)="onKeyDown($event)"
       />
+      <button mat-icon-button matSuffix (click)="updateDashboard()">
+        <mat-icon>done</mat-icon>
+      </button>
     </mat-form-field>
   </ng-template>
 </div>
