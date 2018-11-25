@@ -59,6 +59,14 @@
           margin-right: -10px;
         }
       }
+      &:not(.actions) {
+        display: grid;
+        grid-template-columns: 40px 1fr;
+        mat-card-title {
+          width: 210px;
+          word-wrap: break-word;
+        }
+      }
     }
     mat-spinner {
       margin: 0px auto;

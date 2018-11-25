@@ -13,28 +13,27 @@
       color: $header-color;
     }
   }
-  .card-container {
-    display: flex;
-    flex-flow: wrap;
+  .player-card-container {
+    display: grid;
+    grid-row-gap: 10px;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    @media (max-width: $breakpoint-max-lg) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    @media (max-width: $breakpoint-max-md) {
+      grid-template-columns: 1fr 1fr;
+    }
     @media (max-width: $breakpoint-max-sm) {
-      display: grid;
-      grid-row-gap: 10px;
-      justify-items: center;
       grid-template-columns: 1fr;
     }
     app-player-card {
       width: 300px;
-      margin: 50px;
       min-width: 300px;
-      min-height: 400px;
-      @media (max-width: $breakpoint-max-sm) {
-        margin: 0px;
-        margin-left: -10px;
-      }
+      min-height: 450px;
       @media (max-width: $breakpoint-max-xs) {
         width: 250px;
         min-width: 250px;
-        margin: 10px 0px 10px -12px;
       }
     }
   }
