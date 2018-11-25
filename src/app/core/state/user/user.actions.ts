@@ -15,6 +15,11 @@ export class UpdateDashboard {
   constructor(public dashboard: Dashboard) {}
 }
 
+export class DeleteDashboard {
+  static readonly type = '[Global] Delete Dashboard';
+  constructor(public dashboard: Dashboard) {}
+}
+
 export class SetActiveDashboard {
   static readonly type = '[Global] Set Active Dashboard';
   constructor(public dashboard: Dashboard) {}

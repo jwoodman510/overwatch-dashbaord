@@ -1,5 +1,5 @@
 <mat-card> <mat-card-title>Dashboards</mat-card-title> </mat-card>
-<mat-accordion>
+<mat-accordion [multi]="true">
   <mat-expansion-panel *ngFor="let d of (dashboards$ | async)">
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -9,5 +9,28 @@
       </mat-panel-title>
       <mat-panel-description>{{ d.name }}</mat-panel-description>
     </mat-expansion-panel-header>
+    <mat-form-field>
+      <input #name matInput [value]="d.name" />
+      <button
+        [class.dirty]="d.name !== name.value"
+        [class.invalid]="invalid(d, name.value) | async"
+        [disabled]="invalid(d, name.value) | async"
+        mat-icon-button
+        matSuffix
+        (click)="updateName(d, name.value)"
+      >
+        <mat-icon>done</mat-icon>
+      </button>
+    </mat-form-field>
+    <div class="actions">
+      <button
+        mat-icon-button
+        (click)="delete(d)"
+        [disabled]="(dashboards$ | async).length === 1"
+      >
+        <mat-icon>delete</mat-icon>
+        <span>Delete Dashboard</span>
+      </button>
+    </div>
   </mat-expansion-panel>
 </mat-accordion>

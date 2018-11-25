@@ -7,6 +7,7 @@ import { StorageService, UserService } from '@app/core/services';
 
 import {
   AddDashboard,
+  DeleteDashboard,
   LoadUser,
   SetActiveDashboard,
   UpdateDashboard
@@ -107,9 +108,6 @@ export class UserState {
           });
       }
 
-      state.dashboards[index].name = action.dashboard.name;
-      state.dashboards[index].isDefault = action.dashboard.isDefault;
-
       this.userService.updateDashboard(action.dashboard);
 
       patchState({
@@ -121,6 +119,36 @@ export class UserState {
           activeDashboard: action.dashboard
         });
       }
+    }
+
+    return of(undefined);
+  }
+
+  @Action(DeleteDashboard)
+  deleteDashboard(
+    { getState, patchState }: StateContext<User>,
+    action: DeleteDashboard
+  ): Observable<void> {
+    const state = getState();
+    const dashboards = state.dashboards.filter(
+      x => x.key !== action.dashboard.key
+    );
+
+    if (dashboards.length === 0) {
+      return throwError('At least one dashboard is required.');
+    }
+
+    this.userService.removeDashboard(action.dashboard.key);
+
+    patchState({ dashboards });
+
+    if (
+      state.activeDashboard &&
+      state.activeDashboard.key === action.dashboard.key
+    ) {
+      patchState({
+        activeDashboard: dashboards[0]
+      });
     }
 
     return of(undefined);

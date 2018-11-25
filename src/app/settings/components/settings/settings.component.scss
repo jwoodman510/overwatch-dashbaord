@@ -9,10 +9,32 @@
     }
   }
   mat-accordion {
-    mat-expansion-panel-header {
-      mat-panel-title {
-        mat-icon {
-          color: $accent;
+    mat-expansion-panel {
+      mat-expansion-panel-header {
+        mat-panel-title {
+          mat-icon {
+            color: $accent;
+          }
+        }
+      }
+      .actions {
+        width: 100%;
+        margin-top: 20px;
+      }
+      mat-form-field {
+        width: 100%;
+        button {
+          &.dirty {
+            mat-icon {
+              color: $accent;
+            }
+          }
+          &.invalid {
+            mat-icon {
+              color: $warn;
+              pointer-events: none;
+            }
+          }
         }
       }
     }
