@@ -348,12 +348,12 @@ THE SOFTWARE.
 @angular/animations
 MIT
 
+@angular/material/button
+
 @angular/material/form-field
 
 @angular/forms
 MIT
-
-@angular/material/button
 
 @angular/material/dialog
 
