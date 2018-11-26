@@ -7,12 +7,7 @@ import { map, switchMap, take, tap } from 'rxjs/operators';
 import { Select, Store } from '@ngxs/store';
 
 import { Dashboard } from './core/models';
-import {
-  LoadUser,
-  SetActiveDashboard,
-  UpdateDashboard,
-  UserState
-} from './core/state';
+import { LoadUser, SetActiveDashboard, UserState } from './core/state';
 
 @Component({
   selector: 'app-root',
@@ -20,10 +15,7 @@ import {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  canEdit = false;
   header: string;
-  editMode = false;
-  dashboardName: string;
 
   @Select(UserState.dashboards)
   dashboards$: Observable<Array<Dashboard>>;
@@ -39,39 +31,6 @@ export class AppComponent implements OnInit {
 
   activateRoute(event: any): void {
     this.header = event.header;
-  }
-
-  editDashboard(): void {
-    this.activeDashboard$
-      .pipe(
-        take(1),
-        tap(x => (this.dashboardName = x.name)),
-        tap(() => (this.editMode = true))
-      )
-      .subscribe();
-  }
-
-  onKeyDown(event: KeyboardEvent): void {
-    if (event.keyCode === 13) {
-      this.updateDashboard();
-    }
-  }
-
-  updateDashboard(): void {
-    if (!this.dashboardName || !this.dashboardName.length) {
-      this.editMode = false;
-
-      return;
-    }
-
-    this.activeDashboard$
-      .pipe(
-        take(1),
-        tap(x => (x.name = this.dashboardName)),
-        switchMap(x => this.store.dispatch(new UpdateDashboard(x))),
-        tap(() => (this.editMode = false))
-      )
-      .subscribe();
   }
 
   goToDefaultDashboard(): void {
