@@ -19,6 +19,8 @@
           margin-left: -20px;
           &.back {
             pointer-events: all;
+            display: grid;
+            grid-template-rows: 40px 1fr;
           }
           &.front {
             pointer-events: none;
@@ -119,8 +121,7 @@
       }
     }
     iframe {
-      height: 300px;
-      margin-top: 10px;
+      height: 100%;
     }
   }
 }
