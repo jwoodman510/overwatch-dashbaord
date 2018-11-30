@@ -16,6 +16,7 @@
         transform: rotateY(180deg);
         -webkit-transform: rotateY(180deg);
         mat-card {
+          margin-left: -20px;
           &.back {
             pointer-events: all;
           }
@@ -28,8 +29,8 @@
         position: absolute;
         backface-visibility: hidden;
         &.back {
-          transform: rotateY(180deg);
           pointer-events: none;
+          transform: rotateY(180deg);
         }
         &.front {
           pointer-events: all;
@@ -50,13 +51,17 @@
       &.actions {
         width: 100%;
         display: inline-block;
-        button.flip {
-          float: left;
-          margin-left: -10px;
-        }
-        button.close {
-          float: right;
-          margin-right: -10px;
+        button {
+          margin-left: 10px;
+          margin-right: 10px;
+          &.flip {
+            float: left;
+            margin-left: -10px;
+          }
+          &.close {
+            float: right;
+            margin-right: -10px;
+          }
         }
       }
       &:not(.actions) {
