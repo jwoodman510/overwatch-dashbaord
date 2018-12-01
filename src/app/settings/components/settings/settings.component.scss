@@ -52,27 +52,12 @@
           }
         }
       }
+      &:last-of-type {
+        margin-bottom: 20px;
+      }
     }
   }
-  mat-card.new-dashboard {
+  app-create-dashboard {
     margin-top: 20px;
-    mat-form-field.name {
-      width: 100%;
-    }
-    .actions {
-      margin-top: 20px;
-      button.save {
-        float: right;
-        color: $primary;
-        background: $accent;
-        &[disabled] {
-          opacity: 0.5;
-        }
-      }
-      button.cancel {
-        color: $accent;
-        background: $primary;
-      }
-    }
   }
 }

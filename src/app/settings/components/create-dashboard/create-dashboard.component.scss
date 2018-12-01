@@ -1,0 +1,24 @@
+@import '../../../../variables.scss';
+
+:host {
+  mat-card {
+    mat-form-field.name {
+      width: 100%;
+    }
+    .actions {
+      margin-top: 20px;
+      button.save {
+        float: right;
+        color: $primary;
+        background: $accent;
+        &[disabled] {
+          opacity: 0.5;
+        }
+      }
+      button.cancel {
+        color: $accent;
+        background: $primary;
+      }
+    }
+  }
+}

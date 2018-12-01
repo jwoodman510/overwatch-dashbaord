@@ -6,12 +6,7 @@ import { map } from 'rxjs/operators';
 import { Select, Store } from '@ngxs/store';
 
 import { Dashboard, User } from '@app/core/models';
-import {
-  AddDashboard,
-  DeleteDashboard,
-  UpdateDashboard,
-  UserState
-} from '@app/core/state';
+import { DeleteDashboard, UpdateDashboard, UserState } from '@app/core/state';
 
 @Component({
   selector: 'app-settings',
@@ -19,13 +14,14 @@ import {
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent {
-  readonly header = 'Settings';
-  newDashboard: Dashboard;
+  isCreate = false;
 
-  constructor(private store: Store) {}
+  readonly header = 'Settings';
 
   @Select(UserState.dashboards)
   dashboards$: Observable<Array<Dashboard>>;
+
+  constructor(private store: Store) {}
 
   setDefault(event: MouseEvent, dashboard: Dashboard): void {
     event.preventDefault();
@@ -37,18 +33,7 @@ export class SettingsComponent {
   }
 
   addDashboard(): void {
-    this.newDashboard = new Dashboard();
-  }
-
-  cancelCreate(): void {
-    this.newDashboard = undefined;
-  }
-
-  saveCreate(): void {
-    this.store.dispatch(
-      new AddDashboard(this.newDashboard.name, this.newDashboard.isDefault)
-    );
-    this.newDashboard = undefined;
+    this.isCreate = true;
   }
 
   updateName(dashboard: Dashboard, name: string): void {

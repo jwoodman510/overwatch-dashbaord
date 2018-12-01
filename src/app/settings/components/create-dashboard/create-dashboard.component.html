@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-title><h4>New Dashboard</h4></mat-card-title>
+  <mat-form-field class="name">
+    <input #newName matInput [(ngModel)]="dashboard.name" placeholder="Name" />
+  </mat-form-field>
+  <div class="default">
+    <mat-slide-toggle
+      [checked]="false"
+      [labelPosition]="'before'"
+      (change)="dashboard.isDefault = $event.checked"
+    >
+      <span>Set as Default</span>
+    </mat-slide-toggle>
+  </div>
+  <div class="actions">
+    <button mat-raised-button class="cancel" (click)="cancel.emit()">
+      Cancel
+    </button>
+    <button
+      mat-raised-button
+      class="save"
+      [disabled]="invalid(dashboard, dashboard.name) | async"
+      (click)="saveClicked()"
+    >
+      Save
+    </button>
+  </div>
+</mat-card>

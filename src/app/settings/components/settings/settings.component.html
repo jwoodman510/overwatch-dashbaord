@@ -41,36 +41,9 @@
     </div>
   </mat-expansion-panel>
 </mat-accordion>
-<mat-card *ngIf="newDashboard" class="new-dashboard">
-  <mat-card-title><h4>New Dashboard</h4></mat-card-title>
-  <mat-form-field class="name">
-    <input
-      #newName
-      matInput
-      [(ngModel)]="newDashboard.name"
-      placeholder="Name"
-    />
-  </mat-form-field>
-  <div class="default">
-    <mat-slide-toggle
-      [checked]="false"
-      [labelPosition]="'before'"
-      (change)="newDashboard.isDefault = $event.checked"
-    >
-      <span>Set as Default</span>
-    </mat-slide-toggle>
-  </div>
-  <div class="actions">
-    <button mat-raised-button class="cancel" (click)="cancelCreate()">
-      Cancel
-    </button>
-    <button
-      mat-raised-button
-      class="save"
-      [disabled]="invalid(newDashboard, newDashboard.name) | async"
-      (click)="saveCreate()"
-    >
-      Save
-    </button>
-  </div>
-</mat-card>
+<app-create-dashboard
+  *ngIf="isCreate"
+  (save)="isCreate = false"
+  (cancel)="isCreate = false"
+>
+</app-create-dashboard>
