@@ -17,6 +17,7 @@
     display: flex;
     flex-wrap: wrap;
     width: calc(100% - 40px);
+    justify-content: center;
     app-player-card {
       margin: 20px;
       width: 300px;
